@@ -1,0 +1,107 @@
+itemGroup.enderpower=Ender Power
+
+tile.ultimate_machine_casing.name=§bUltimate Machine Casing
+enderpower.machines.gas_converter=Gas Extractor
+enderpower.machines.destructor=Atomic bonds restructuring machine
+
+erbigenerator.gui.stored_energy=Stored:
+erbigenerator.gui.capacity_energy=Capacity:
+erbigenerator.gui.temp=Now:
+erbigenerator.gui.max_temp=Max.:
+erbigenerator.gui.prod=Generation:
+erbigenerator.gui.output=Output:
+erbigenerator.gui.gift_energy=Add. Generation:
+erbigenerator.gui.infinity=Infinitely
+erbigenerator.gui.prompt_line1=Gas capsule slot
+erbigenerator.gui.prompt_line2=Empty Capsule Slot
+erbigenerator.gui.prompt_line3=Radiator Slots
+erbigenerator.gui.prompt_line4=Active Heatsink Slot
+erbigenerator.gui.prompt_line5=Update Slots
+erbigenerator.gui.prompt_line6=Generator Temperature
+erbigenerator.gui.prompt_line7=Internal Energy Storage
+erbigenerator.gui.prompt_line8=Gas Tank
+erbigenerator.gui.prompt_line9=Output information
+
+item.neifrit_coil.name=Neifrit Coil
+item.emptyshell.name=Empty Shell
+item.heatingrod.name=Heating Component
+item.ultimate_circuit.name=§bUltimate Circuit
+item.compressed_carbon_plate.name=Compressed Carbon Plate
+item.deterrent.name=§dDeterrent
+item.deterrent_filled.name=§dDeterrent (filled)
+item.inhibition_core.name=§dThe Core Of The Inhibition
+item.amulet_erbi.name=§eThe amulet of Erbi
+
+item.heatsink_lvl.1.name=Heat Sink (Level 1)
+item.heatsink_lvl.2.name=Heat Sink (Level 2)
+item.heatsink_lvl.3.name=Heat Sink (Level 3)
+item.heatsink_lvl.4.name=Heat Sink (Level 4)
+item.heatsink_lvl.5.name=Heat Sink (Level 5)
+item.heatsink_lvl.6.name=Heat Sink (Level 6)
+item.heatsink_lvl.7.name=Heat Sink (Level 7)
+
+item.spadiy.name=Spadiy Ingot
+item.neifrit.name=Neifrit Ingot
+item.erbi.name=Erbi Ingot
+
+item.spadiy_dust.name=Mixture Of Spadiy
+item.steel_dust.name=Steel Dust
+item.neifrit_dust.name=Mixture Of Neifrit
+
+item.neifrit_plate.name=Neifrit Plate
+item.spadiy_plate.name=Spadiy Plate
+
+item.neifrit_plate_dense.name=Dense Neifrit Plate
+item.spadiy_plate_dense.name=Dense Spadiy Plate
+
+item.neifrit_casing.name=Neifrit Casing
+
+item.powerconversion_module.name=Energy module
+
+item.upgrade_speed.name=Upgrade: FastQ
+item.upgrade_volecy.name=Upgrade: Volecy
+
+item.second_product_0.name=Second product (0)
+item.second_product_1.name=Second product (1)
+item.second_product_2.name=Second product (2)
+item.second_product_3.name=Second product (3)
+
+fluid.gas_erbi=Gas Erbi
+tile.null.name=Gas Erbi
+
+#Custom localization
+chatinfo.tag=§3[EnderPower] §r
+
+event.fail=This action can only be performed in the §5end world
+
+more.eu_t=Eu/t
+more.sec=seconds
+more.mb_out=mb
+
+deterrent.shift=§8Details Shift
+deterrent.information.line1=§8RMB on the Shulker Bullet projectile to fill
+deterrent_filled.information.line1=§8Inside:
+deterrent_filled.null_info=§8Empty
+deterrent.error=§8This item has not yet been released
+
+command.enderpower_give.success=Shulker Projectile was artificially added to the §dDeterrent
+command.enderpower_give.nbt.error=There's already something in the §ddeterrent
+command.enderpower_give.detter.error=The §dDeterrent§r must be in your hands
+
+upgrade.speed=Reduces the running time by
+upgrade.speed2=Increases energy consumption by
+upgrade.volecy=Increases energy consumption by
+upgrade.volecy2=Increases the gas output by
+upgrade.alert=§4ATTENTION: if you change the number of improvements in the mechanism - the progress is reset
+upgrade.energy=§8Increases the amount of energy produced in the generator
+upgrade.capacity=§8Increases internal energy storage in the generator
+upgrade.gift_energy=§8Increases additional generation in the generator
+
+jei.desc.projectile_holder=To fill the §d§lDeterrent§r, you need to hold it in your hands, press the RBM on the shulker projectile
+jei.desc.extra=When using improvements:
+jei.desc.extra2=the speed of operation and the amount
+jei.desc.extra3=of gas may vary*
+
+jei.desc.dust_spidiy=If you decide to blow up the mixture, then don't be surprised if nothing drops...
+
+enderpower.config.fastq_boostspeed=General Settings
