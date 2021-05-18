@@ -109,8 +109,6 @@ public class ModUtils {
                 }
             }
             new ActionResult<>(EnumActionResult.SUCCESS, stack);
-            return;
         }
-        new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 }
