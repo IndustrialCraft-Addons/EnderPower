@@ -3,8 +3,11 @@ package com.nofrfa.enderpower.misc.registr;
 import com.nofrfa.enderpower.EnderPower;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
+import net.minecraft.block.Block;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CraftRegister {
     private static final ItemStack
@@ -219,11 +222,43 @@ public class CraftRegister {
                 'A', erbi_ingot, 'B', irid_pate, 'C', ult_circuit);
     }
 
-    private static void addShapedRecipes (ItemStack output, Object...input){
+    public static void addFurnaceRecipes() {
+        addFurnaceRecipe(is(BlocksRegister.NeifritOre), is(ItemsRegistry.INGOT_nefrit), 2.0F);
+    }
+
+    private static void addShapedRecipes(ItemStack output, Object...input){
         ic2.api.recipe.Recipes.advRecipes.addRecipe(output, input);
     }
 
-    private static void addShapelessRecipe (ItemStack output, Object...input) {
+    private static void addShapelessRecipe(ItemStack output, Object...input) {
         Recipes.advRecipes.addShapelessRecipe(output, input);
+    }
+
+    private static void addFurnaceRecipe(ItemStack stack, ItemStack output, Float exp) {
+        GameRegistry.addSmelting(stack, output, exp);
+    }
+
+    private static void addFurnaceRecipe(Item item, ItemStack output, Float exp) {
+        GameRegistry.addSmelting(item, output, exp);
+    }
+
+    private static void addFurnaceRecipe(Block block, ItemStack output, Float exp) {
+        GameRegistry.addSmelting(block, output, exp);
+    }
+
+    private static ItemStack is(Item item) {
+        return new ItemStack(item);
+    }
+
+    private static ItemStack is(Block block) {
+        return new ItemStack(block);
+    }
+
+    private static ItemStack is(Item item, int count) {
+        return new ItemStack(item, count);
+    }
+
+    private static ItemStack is(Block block, int count) {
+        return new ItemStack(block, count);
     }
 }

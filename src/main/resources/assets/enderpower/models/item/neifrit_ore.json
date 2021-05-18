@@ -1,0 +1,6 @@
+{
+  "parent": "enderpower:block/neifrit_ore",
+  "textures": {
+    "all": "enderpower:blocks/neifrit_ore"
+  }
+}

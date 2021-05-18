@@ -1,6 +1,9 @@
 itemGroup.enderpower=Ender Power
 
 tile.ultimate_machine_casing.name=§bУльтимативный корпус механизма
+tile.enderpower.neifrit_ore.name=Неифритовая руда
+tile.enderpower.neifrit_ore.description=§8Можно найти только в Крае
+tile.enderpower.neifrit_ore.description2=§8Удача не работает
 enderpower.machines.gas_converter=Газовый экстрактор
 enderpower.machines.destructor=Реструктуризатор атомных связей
 

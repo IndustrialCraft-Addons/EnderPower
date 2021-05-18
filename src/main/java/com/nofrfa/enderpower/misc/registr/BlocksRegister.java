@@ -3,7 +3,9 @@ package com.nofrfa.enderpower.misc.registr;
 import com.nofrfa.enderpower.blocks.BlockList;
 import com.nofrfa.enderpower.fluids.GasBlockErbi;
 import com.nofrfa.enderpower.misc.tabs.TabsList;
+import com.nofrfa.enderpower.world.ore.NeifritOre;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -55,10 +57,8 @@ public class BlocksRegister {
 
     public static Block
             BLOCK_UltimateMachineCasing = new BlockList("ultimate_machine_casing", Material.IRON, 255, 10.0F, 100.0F, "pickaxe", 3, TabsList.EXtabs),
-            GAS_ERBI = new GasBlockErbi(FluidsRegister.GAS_ERBI)
-
-
-    ;
+            GAS_ERBI = new GasBlockErbi(FluidsRegister.GAS_ERBI);
+    public static BlockOre NeifritOre = new NeifritOre();
 
 
     public static void register() {
@@ -69,6 +69,7 @@ public class BlocksRegister {
         */
         setRegister(BLOCK_UltimateMachineCasing);
         setRegister(GAS_ERBI);
+        setRegister(NeifritOre);
     }
 
     @SideOnly(Side.CLIENT)
@@ -80,6 +81,7 @@ public class BlocksRegister {
         */
         setRender(BLOCK_UltimateMachineCasing);
         setRender(GAS_ERBI);
+        setRender(NeifritOre);
     }
 
     // ВСЁ ЧТО НИЖЕ - НЕ ТРОГАЕМ

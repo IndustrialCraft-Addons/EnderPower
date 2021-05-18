@@ -1,6 +1,9 @@
 itemGroup.enderpower=Ender Power
 
 tile.ultimate_machine_casing.name=§bUltimate Machine Casing
+tile.enderpower.neifrit_ore.name=Neifrit Ore
+tile.enderpower.neifrit_ore.description=§8Only found in the End
+tile.enderpower.neifrit_ore.description2=§8Luck Not Working
 enderpower.machines.gas_converter=Gas Extractor
 enderpower.machines.destructor=Atomic bonds restructuring machine
 
