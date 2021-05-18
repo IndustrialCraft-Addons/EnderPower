@@ -1,7 +1,18 @@
 package com.nofrfa.enderpower.misc;
 
+import ic2.core.IC2;
+import ic2.core.util.StackUtil;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
+
+import javax.annotation.Nonnull;
 
 public class ModUtils {
     public static String getString(float number) {
@@ -63,6 +74,8 @@ public class ModUtils {
         return returnString;
     }
 
+
+
     public static final Item.ToolMaterial ToolMaterial_univ =
             EnumHelper.addToolMaterial(
                     "enderpower:tool", //name
@@ -81,4 +94,23 @@ public class ModUtils {
                     13.0F, //Damage
                     30 //Enchantability
             );
+
+    public static void enchanterHelper(World worldIn, EntityPlayer playerIn, EnumHand handIn, @Nonnull Enchantment ench1) {
+        ItemStack stack = StackUtil.get(playerIn, handIn);
+
+        if(IC2.keyboard.isSneakKeyDown(playerIn)) {
+            if(!worldIn.isRemote) {
+                if(!stack.isItemEnchanted()) {
+                    stack.addEnchantment(ench1, 5);
+                }
+                else {
+                    assert stack.getTagCompound() != null;
+                    stack.getTagCompound().removeTag("ench");
+                }
+            }
+            new ActionResult<>(EnumActionResult.SUCCESS, stack);
+            return;
+        }
+        new ActionResult<>(EnumActionResult.SUCCESS, stack);
+    }
 }
