@@ -69,5 +69,7 @@ public class EnderPower {
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event) { proxy.postInit(event); }
+    public void postInit(FMLPostInitializationEvent event) {
+        proxy.postInit(event);
+    }
 }
