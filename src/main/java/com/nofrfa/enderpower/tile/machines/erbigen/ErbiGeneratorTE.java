@@ -262,13 +262,16 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                 if (this.temperature < 2700) {
                     if (this.timer % 5 == 0) {
                         this.fluidTank.drain(1, true);
-                        this.temperature += getRandom(5, 9);
+                        this.temperature += getRandom(5.0, 9.0);
                     }
                 } else {
                     if (this.timer % 10 == 0) {
                         this.fluidTank.drain(1, true);
                         this.gasUsed++;
-                        this.temperature += Math.min(this.maxTemperature - this.temperature, getRandom(3, 9));
+                        this.temperature += Math.min(this.maxTemperature - this.temperature, getRandom(3.0, 9.0));
+
+                        if(getFreeEnergy() == 0)
+                            this.temperature += getRandom(10, 80);
 
                         if(this.gasUsed == 33) {
                             assert false;
@@ -279,10 +282,6 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                             }
 
                             this.gasUsed = 0;
-                        }
-
-                        if(this.stored == this.maxCapacity) {
-                            this.temperature += getRandom(10, 80);
                         }
 
                         if (!this.heatSink.isEmpty()) {
@@ -318,7 +317,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         if(this.temperature >= 1000) {
             double energyPerTemp = ((this.production + energyProdBonus) / 1700) * (this.temperature - 1000);
             this.guiProd = energyPerTemp;
-            this.stored += Math.min(getFreeEnergy(), energyPerTemp) + this.giftEnergy;
+            this.stored += Math.min(getFreeEnergy(), energyPerTemp + this.giftEnergy);
         }
 
         //creative part
@@ -383,6 +382,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         heatSink_reserve.forEach(list::add);
         upgrades.forEach(list::add);
         outputFluidSlot.forEach(list::add);
+        outputSecondProducts.forEach(list::add);
 
         return list;
     }
