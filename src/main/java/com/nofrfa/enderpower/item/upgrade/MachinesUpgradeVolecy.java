@@ -1,6 +1,7 @@
 package com.nofrfa.enderpower.item.upgrade;
 
 import com.nofrfa.enderpower.misc.Configs;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -23,11 +24,16 @@ public class MachinesUpgradeVolecy extends Item {
 
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        int boostEnergy = stack.getCount() * Configs.GeneralSettings.Upgrades.Volecy.upgrades_volecy_increaseEnergyConsume;
-        int boostMilibackets = stack.getCount() * Configs.GeneralSettings.Upgrades.Volecy.upgrades_volecy_mbBoost;
+        if(GuiScreen.isShiftKeyDown()){
+            int boostEnergy = stack.getCount() * Configs.GeneralSettings.Upgrades.Volecy.upgrades_volecy_increaseEnergyConsume;
+            int boostMilibackets = stack.getCount() * Configs.GeneralSettings.Upgrades.Volecy.upgrades_volecy_mbBoost;
 
-        tooltip.add(I18n.format("upgrade.volecy") + " " + boostEnergy + " " + I18n.format("more.eu_t"));
-        tooltip.add(I18n.format("upgrade.volecy2") + " " + boostMilibackets + " " + I18n.format("more.mb_out"));
-        tooltip.add(I18n.format("upgrade.alert"));
+            tooltip.add(I18n.format("upgrade.volecy") + " " + boostEnergy + " " + I18n.format("more.eu_t"));
+            tooltip.add(I18n.format("upgrade.volecy2") + " " + boostMilibackets + " " + I18n.format("more.mb_out"));
+            tooltip.add(I18n.format("upgrade.alert"));
+        } else {
+            tooltip.add(I18n.format("deterrent.shift"));
+        }
+
     }
 }
