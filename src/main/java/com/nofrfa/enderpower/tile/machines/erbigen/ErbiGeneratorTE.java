@@ -60,6 +60,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
     private int timer;
     public double workTime;
     public double giftEnergy;
+    public double guiGiftEnergy;
     public boolean creativeEnergy;
     public int gasUsed;
     public final FluidTank fluidTank;
@@ -96,6 +97,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         this.temperature = 0;
         this.workTime = 0;
         this.giftEnergy = 0;
+        this.guiGiftEnergy = 0;
         this.boom = false;
         this.creativeEnergy = false;
         this.gasUsed = 0;
@@ -131,6 +133,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         this.temperature = nbt.getDouble("temperature");
         this.maxTemperature = nbt.getDouble("maxTemperature");
         this.giftEnergy = nbt.getDouble("giftEnergy");
+        this.guiGiftEnergy = nbt.getDouble("guiGiftEnergy");
     }
 
     @Override
@@ -145,6 +148,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         nbt.setDouble("temperature", this.temperature);
         nbt.setDouble("maxTemperature", this.maxTemperature);
         nbt.setDouble("giftEnergy", this.giftEnergy);
+        nbt.setDouble("guiGiftEnergy", this.guiGiftEnergy);
         return nbt;
     }
 
@@ -215,7 +219,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                             capacityBonus += Configs.GeneralSettings.Upgrades.Capacity.capacity_upgrade_boost;
                             break;
                         case 2:
-                            giftEnergyBonus += Configs.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_boost;
+                            giftEnergyBonus *= Configs.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_boost;
                             break;
                         case 3:
                             this.creativeEnergy = true;
@@ -303,21 +307,23 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
             }
             this.workTime = 0;
             this.giftEnergy = 0;
+            this.guiGiftEnergy = 0;
         }
 
         if(this.workTime == 4100) {
-            double tmp = this.production + energyProdBonus + this.giftEnergy + giftEnergyBonus;
+            double tmp = this.production + energyProdBonus + this.giftEnergy;
             this.giftEnergy += getRandom(
                     tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_1,
                     tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_2
             );
+            this.guiGiftEnergy = this.giftEnergy * giftEnergyBonus;
             this.workTime = 0;
         }
 
         if(this.temperature >= 1000) {
             double energyPerTemp = ((this.production + energyProdBonus) / 1700) * (this.temperature - 1000);
             this.guiProd = energyPerTemp;
-            this.stored += Math.min(getFreeEnergy(), energyPerTemp + this.giftEnergy);
+            this.stored += Math.min(getFreeEnergy(), energyPerTemp + (this.giftEnergy * giftEnergyBonus));
         }
 
         //creative part

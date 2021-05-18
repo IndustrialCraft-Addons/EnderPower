@@ -67,7 +67,7 @@ public class GuiEG extends GuiIC2<ContainerEG> {
         this.fontRenderer.drawString(String.format("%s %sC", I18n.format("erbigenerator.gui.temp"), String.format("%.2f", this.container.base.temperature)), 118, 71, 15659247, true);
         this.fontRenderer.drawString(String.format("%s %sC", I18n.format("erbigenerator.gui.max_temp"), this.container.base.maxTemperature), 118, 79, 15659247, true);
         this.fontRenderer.drawString(String.format("%s %s EU/t", I18n.format("erbigenerator.gui.prod"), ModUtils.getString(this.container.base.guiProd)), 118, 87, 15659247, true);
-        this.fontRenderer.drawString(String.format("%s %s", I18n.format("erbigenerator.gui.gift_energy"), ModUtils.getString(this.container.base.giftEnergy)), 118, 95, 15659247, true);
+        this.fontRenderer.drawString(String.format("%s %s", I18n.format("erbigenerator.gui.gift_energy"), ModUtils.getString(this.container.base.guiGiftEnergy)), 118, 95, 15659247, true);
         this.fontRenderer.drawString(String.format("%s %s EU/t", I18n.format("erbigenerator.gui.output"), I18n.format("erbigenerator.gui.infinity")), 118, 103, 15659247, true);
     }
 

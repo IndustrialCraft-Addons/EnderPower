@@ -140,8 +140,8 @@ public class Configs {
 
                 @Config.LangKey(config + "general_settings.upgrades.gift_energy.boost")
                 @Config.Comment(" /// todo ///")
-                @Config.RangeDouble(min = 1, max = 9_223_372_036_854_775_807D)
-                public double giftEnergy_upgrade_boost = 100_000;
+                @Config.RangeDouble(min = 1, max = 10)
+                public double giftEnergy_upgrade_boost = 1.3;
             }
         }
 

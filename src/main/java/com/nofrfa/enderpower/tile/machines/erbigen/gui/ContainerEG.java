@@ -45,6 +45,7 @@ public class ContainerEG extends ContainerFullInv<ErbiGeneratorTE> {
         ret.add("maxTemperature");
         ret.add("fluidTank");
         ret.add("giftEnergy");
+        ret.add("guiGiftEnergy");
         return ret;
     }
 }
