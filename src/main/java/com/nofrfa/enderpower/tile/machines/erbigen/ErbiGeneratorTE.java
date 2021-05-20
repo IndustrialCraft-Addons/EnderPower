@@ -115,9 +115,9 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                 new ItemStack(ItemsRegistry.COMPONENT_6),
                 new ItemStack(ItemsRegistry.COMPONENT_7),
         };
-        this.heatSink_reserve = new InvSlotConsumableItemStack(this, "heatSink_reserve",  InvSlot.Access.IO, 6, InvSlot.InvSide.ANY, heatSinks);
-        this.heatSink = new InvSlotConsumableItemStack(this, "heatSink",  InvSlot.Access.IO, 1, InvSlot.InvSide.ANY, heatSinks);
-        this.upgrades = new InvSlotConsumableItemStack(this, "upgrades", InvSlot.Access.IO, 6, InvSlot.InvSide.ANY, upgradesList);
+        this.heatSink_reserve = new InvSlotConsumableItemStack(this, "heatSink_reserve",  InvSlot.Access.I, 6, InvSlot.InvSide.ANY, heatSinks);
+        this.heatSink = new InvSlotConsumableItemStack(this, "heatSink",  InvSlot.Access.I, 1, InvSlot.InvSide.ANY, heatSinks);
+        this.upgrades = new InvSlotConsumableItemStack(this, "upgrades", InvSlot.Access.I, 6, InvSlot.InvSide.ANY, upgradesList);
         this.outputSecondProducts = new InvSlotOutput(this, "secProd_output", 1);
     }
 
@@ -205,7 +205,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
 
         double energyProdBonus = 0;
         double capacityBonus = 0;
-        double giftEnergyBonus = 0;
+        double giftEnergyBonus = 1;
         this.creativeEnergy = false;
 
         for(int i = 0; i < this.upgrades.size(); i++) {
@@ -232,9 +232,6 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         if(this.timer++ % 100 == 0) {
             if(this.maxCapacity != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + capacityBonus)
                 this.maxCapacity = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + capacityBonus;
-
-            if(this.production != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction + energyProdBonus)
-                this.production = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction + energyProdBonus;
 
             if(this.stored > this.maxCapacity)
                 this.stored = this.maxCapacity;
@@ -316,14 +313,17 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                     tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_1,
                     tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_2
             );
-            this.guiGiftEnergy = this.giftEnergy * giftEnergyBonus;
+            this.guiGiftEnergy = this.giftEnergy;
             this.workTime = 0;
         }
 
         if(this.temperature >= 1000) {
             double energyPerTemp = ((this.production + energyProdBonus) / 1700) * (this.temperature - 1000);
             this.guiProd = energyPerTemp;
-            this.stored += Math.min(getFreeEnergy(), energyPerTemp + (this.giftEnergy * giftEnergyBonus));
+            this.stored += Math.min(getFreeEnergy(), energyPerTemp);
+
+            if(giftEnergyBonus > 1)
+                this.stored += Math.min(getFreeEnergy(), this.giftEnergy * giftEnergyBonus);
         }
 
         //creative part
