@@ -133,7 +133,6 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         this.temperature = nbt.getDouble("temperature");
         this.maxTemperature = nbt.getDouble("maxTemperature");
         this.giftEnergy = nbt.getDouble("giftEnergy");
-        this.guiGiftEnergy = nbt.getDouble("guiGiftEnergy");
     }
 
     @Override
@@ -148,7 +147,6 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         nbt.setDouble("temperature", this.temperature);
         nbt.setDouble("maxTemperature", this.maxTemperature);
         nbt.setDouble("giftEnergy", this.giftEnergy);
-        nbt.setDouble("guiGiftEnergy", this.guiGiftEnergy);
         return nbt;
     }
 
@@ -285,7 +283,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                             this.gasUsed = 0;
                         }
 
-                        if (!this.heatSink.isEmpty()) {
+                        if(!this.heatSink.isEmpty()) {
                             int excessTemp = (int) this.temperature - 2700;
                             int durabilityHeatSink = this.heatSink.get().getMaxDamage() - this.heatSink.get().getItemDamage();
 
@@ -309,21 +307,19 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
 
         if(this.workTime == 4100) {
             double tmp = this.production + energyProdBonus + this.giftEnergy;
-            this.giftEnergy += getRandom(
+            this.guiGiftEnergy = this.giftEnergy += getRandom(
                     tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_1,
                     tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_2
             );
-            this.guiGiftEnergy = this.giftEnergy;
             this.workTime = 0;
         }
 
         if(this.temperature >= 1000) {
             double energyPerTemp = ((this.production + energyProdBonus) / 1700) * (this.temperature - 1000);
             this.guiProd = energyPerTemp;
-            this.stored += Math.min(getFreeEnergy(), energyPerTemp);
 
-            if(giftEnergyBonus > 1)
-                this.stored += Math.min(getFreeEnergy(), this.giftEnergy * giftEnergyBonus);
+            this.stored += Math.min(getFreeEnergy(), energyPerTemp);
+            this.stored += Math.min(getFreeEnergy(), this.guiGiftEnergy = this.giftEnergy * giftEnergyBonus);
         }
 
         //creative part
@@ -331,6 +327,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
             this.stored = this.maxCapacity;
             this.guiProd = this.maxCapacity;
             this.temperature = 0;
+            this.setMode(0);
         }
     }
 
