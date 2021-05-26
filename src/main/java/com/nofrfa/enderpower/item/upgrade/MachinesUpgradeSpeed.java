@@ -28,8 +28,9 @@ public class MachinesUpgradeSpeed extends Item {
             int boostSpeed = stack.getCount() * Configs.GeneralSettings.Upgrades.FastQ.upgrades_fastq_boostSpeed;
             int boostEnergy = stack.getCount() * Configs.GeneralSettings.Upgrades.FastQ.upgrades_fastq_increaseEnergyConsume;
 
-            tooltip.add(I18n.format("upgrade.speed") + " " + boostSpeed + " " + I18n.format("more.sec"));
-            tooltip.add(I18n.format("upgrade.speed2") + " " + boostEnergy + " " + I18n.format("more.eu_t"));
+            tooltip.add(I18n.format("upgrade.use_gas_converter"));
+            tooltip.add(I18n.format("upgrade.speed2") + boostEnergy +  " " + I18n.format("more.eu_t"));
+            tooltip.add(I18n.format("upgrade.speed") + boostSpeed +  " " + I18n.format("more.sec"));
         } else {
             tooltip.add(I18n.format("deterrent.shift"));
         }

@@ -28,8 +28,9 @@ public class MachinesUpgradeVolecy extends Item {
             int boostEnergy = stack.getCount() * Configs.GeneralSettings.Upgrades.Volecy.upgrades_volecy_increaseEnergyConsume;
             int boostMilibackets = stack.getCount() * Configs.GeneralSettings.Upgrades.Volecy.upgrades_volecy_mbBoost;
 
-            tooltip.add(I18n.format("upgrade.volecy") + " " + boostEnergy + " " + I18n.format("more.eu_t"));
-            tooltip.add(I18n.format("upgrade.volecy2") + " " + boostMilibackets + " " + I18n.format("more.mb_out"));
+            tooltip.add(I18n.format("upgrade.use_gas_converter"));
+            tooltip.add(I18n.format("upgrade.volecy") + boostEnergy + " " + I18n.format("more.eu_t"));
+            tooltip.add(I18n.format("upgrade.volecy2") + boostMilibackets + " " +  I18n.format("more.mb_out"));
             tooltip.add(I18n.format("upgrade.alert"));
         } else {
             tooltip.add(I18n.format("deterrent.shift"));

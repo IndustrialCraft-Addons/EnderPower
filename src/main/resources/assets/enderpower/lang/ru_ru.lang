@@ -2,10 +2,11 @@ itemGroup.enderpower=Ender Power
 
 tile.ultimate_machine_casing.name=§bУльтимативный корпус механизма
 tile.enderpower.neifrit_ore.name=Неифритовая руда
-tile.enderpower.neifrit_ore.description=§8Можно найти только в Крае
-tile.enderpower.neifrit_ore.description2=§8Удача не работает
+tile.enderpower.neifrit_ore.description=Можно найти только в Крае
+tile.enderpower.neifrit_ore.description2=Удача не работает
 enderpower.machines.gas_converter=Газовый экстрактор
 enderpower.machines.destructor=Реструктуризатор атомных связей
+enderpower.machines.erbi_generator=Эрбиевый генератор
 
 erbigenerator.gui.stored_energy=Хранится:
 erbigenerator.gui.capacity_energy=Максимум:
@@ -77,28 +78,32 @@ chatinfo.tag=§3[EnderPower] §r
 
 event.fail=Это действие может быть выполнено только в §5эндер мире
 
-more.eu_t=Eu/t
-more.sec=секунд
-more.mb_out=mb
+more.eu_t=§7Eu/t
+more.sec=§7секунд
+more.mb_out=§7mb
 
 deterrent.shift=§8Подробности Shift
-deterrent.information.line1=§8Пкм по снаряду шалкера, чтобы заполнить
-deterrent_filled.information.line1=§8Внутри:
-deterrent_filled.null_info=§8Пусто
-deterrent.error=§8Данный предмет ещё не реализован
+deterrent.information.line1=Пкм по снаряду шалкера, чтобы заполнить
+deterrent_filled.information.line1=Внутри:
+deterrent_filled.null_info=Пусто
+deterrent.error=Данный предмет ещё не реализован
 
 command.enderpower_give.success=Снаряд Шалкера был искусственно добавлен в §dСдерживатель
 command.enderpower_give.nbt.error=В §dСдерживателе§r уже что-то есть
 command.enderpower_give.detter.error=§dСдерживатель§r должен быть в ваших руках
 
-upgrade.speed=Уменьшает время работы на
-upgrade.speed2=Увеличивает потребление энергии на
-upgrade.volecy=Увеличивает потребление энергии на
-upgrade.volecy2=Увеличивает выход газа на
-upgrade.alert=§4ВНИМАНИЕ: при изменении количества улучшений в механизме - обнуляется прогресс
-upgrade.energy=Увеличивает количество производимой энергии в генераторе: §a+
-upgrade.capacity=Увеличивает внутренее хранилище энергии в генераторе: §a+
-upgrade.gift_energy=Увеличивает дополнительную генерацию в генераторе: §a*
+#gas_converter upd
+upgrade.use_gas_converter=Используется в Газовом экстракторе
+upgrade.speed=[+] Уменьшает время работы на §a
+upgrade.speed2=[-] Увеличивает потребление энергии на §c
+upgrade.volecy=[-] Увеличивает потребление энергии на §c
+upgrade.volecy2=[+] Увеличивает выход газа на §a
+upgrade.alert=§4[!] При изменении количества улучшений в механизме - прогресс обнуляется
+#generator upd
+upgrade.use_generator=Используется в Эрбиевом генераторе
+upgrade.energy=[+] Производство энергии: §a+
+upgrade.capacity=[+] Внутренее хранилище энергии: §a+
+upgrade.gift_energy=[+] Дополнительная генерация: §ax
 
 jei.desc.projectile_holder=Чтобы заполнить §d§lСдерживатель§r, нужно держа его в руках, нажать ПКМ по снаряду шалкера
 jei.desc.extra=При использовании улучшений:

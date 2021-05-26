@@ -2,10 +2,11 @@ itemGroup.enderpower=Ender Power
 
 tile.ultimate_machine_casing.name=§bUltimate Machine Casing
 tile.enderpower.neifrit_ore.name=Neifrit Ore
-tile.enderpower.neifrit_ore.description=§8Only found in the End
-tile.enderpower.neifrit_ore.description2=§8Luck Not Working
+tile.enderpower.neifrit_ore.description=Only found in the End
+tile.enderpower.neifrit_ore.description2=Luck Not Working
 enderpower.machines.gas_converter=Gas Extractor
 enderpower.machines.destructor=Atomic bonds restructuring machine
+enderpower.machines.erbi_generator=Erbium generator
 
 erbigenerator.gui.stored_energy=Stored:
 erbigenerator.gui.capacity_energy=Capacity:
@@ -77,28 +78,32 @@ chatinfo.tag=§3[EnderPower] §r
 
 event.fail=This action can only be performed in the §5end world
 
-more.eu_t=Eu/t
-more.sec=seconds
-more.mb_out=mb
+more.eu_t=§7Eu/t
+more.sec=§7seconds
+more.mb_out=§7mb
 
 deterrent.shift=§8Details Shift
-deterrent.information.line1=§8RMB on the Shulker Bullet projectile to fill
-deterrent_filled.information.line1=§8Inside:
-deterrent_filled.null_info=§8Empty
-deterrent.error=§8This item has not yet been released
+deterrent.information.line1=RMB on the Shulker Bullet projectile to fill
+deterrent_filled.information.line1=Inside:
+deterrent_filled.null_info=Empty
+deterrent.error=This item has not yet been released
 
 command.enderpower_give.success=Shulker Projectile was artificially added to the §dDeterrent
 command.enderpower_give.nbt.error=There's already something in the §ddeterrent
 command.enderpower_give.detter.error=The §dDeterrent§r must be in your hands
 
-upgrade.speed=Reduces the running time by
-upgrade.speed2=Increases energy consumption by
-upgrade.volecy=Increases energy consumption by
-upgrade.volecy2=Increases the gas output by
-upgrade.alert=§4ATTENTION: if you change the number of improvements in the mechanism - the progress is reset
-upgrade.energy=§8Increases the amount of energy produced in the generator
-upgrade.capacity=§8Increases internal energy storage in the generator
-upgrade.gift_energy=§8Increases additional generation in the generator
+#gas_converter upd
+upgrade.use_gas_converter=Used in Gas Extractor
+upgrade.speed=[+] Reduces runtime by §a
+upgrade.speed2=[-] Increases energy consumption by §c
+upgrade.volecy=[-] Increases energy consumption by §c
+upgrade.volecy2=[+] Increases gas output by §a
+upgrade.alert=§4[!] When the number of upgrade in the mechanism changes - the progress is reset
+#generator upd
+upgrade.use_generator=Used in Erbium Generator
+upgrade.energy=[+] Energy production: §a+
+upgrade.capacity=[+] Internal energy storage: §a+
+upgrade.gift_energy=[+] Additional generation: §ax
 
 jei.desc.projectile_holder=To fill the §d§lDeterrent§r, you need to hold it in your hands, press the RBM on the shulker projectile
 jei.desc.extra=When using improvements:
