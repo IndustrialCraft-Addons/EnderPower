@@ -35,6 +35,10 @@ item.deterrent.name=§dDeterrent
 item.deterrent_filled.name=§dDeterrent (filled)
 item.inhibition_core.name=§dThe Core Of The Inhibition
 item.amulet_erbi.name=§eThe amulet of Erbi
+item.spadiy_axe.name=Spadiy Axe
+item.spadiy_pickaxe.name=Spadiy Pickaxe
+item.spadiy_spade.name=Spadiy Shovel
+item.spadiy_sword.name=Spadiy Sword
 
 item.heatsink_lvl.1.name=Heat Sink (Level 1)
 item.heatsink_lvl.2.name=Heat Sink (Level 2)
@@ -64,6 +68,10 @@ item.powerconversion_module.name=Energy module
 
 item.upgrade_speed.name=Upgrade: FastQ
 item.upgrade_volecy.name=Upgrade: Volecy
+item.upgrade_energy.name=Upgrade: Generation
+item.upgrade_capacity.name=Upgrade: Capacity
+item.upgrade_gift_energy.name=Upgrade: Extra Generation
+item.upgrade_creative_energy.name=Creative Upgrade
 
 item.second_product_0.name=Second product (0)
 item.second_product_1.name=Second product (1)
