@@ -29,87 +29,66 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @GameRegistry.ObjectHolder(EnderPower.MODID)
 @Mod.EventBusSubscriber
 public class ItemsRegistry {
-    //Сдерживатель
     @GameRegistry.ObjectHolder("deterrent")
     public static final Item ITEM_deterrent = null;
 
-    //Сдерживание (заполнен)
     @GameRegistry.ObjectHolder("deterrent_filled")
     public static final Item ITEM_deterrent_filled = null;
 
-    //Слиток спадия
     @GameRegistry.ObjectHolder("spadiy")
     public static final Item INGOT_spadiy = null;
 
-    //Неифрит
     @GameRegistry.ObjectHolder("neifrit")
     public static final Item INGOT_nefrit = null;
 
-    //Эрбий
     @GameRegistry.ObjectHolder("erbi")
     public static final Item INGOT_erbi = null;
 
-    //Смесь спадия
     @GameRegistry.ObjectHolder("spadiy_dust")
     public static final Item DUST_spadiy = null;
 
-    //Стальная пыль
     @GameRegistry.ObjectHolder("steel_dust")
     public static final Item DUST_steel = null;
 
-    //Неифритовая пыль
     @GameRegistry.ObjectHolder("neifrit_dust")
     public static final Item DUST_neifrit = null;
 
-    //Неифритовая пластина
     @GameRegistry.ObjectHolder("neifrit_plate")
     public static final Item PLATE_neifrit = null;
 
-    //Пластина из спадия
     @GameRegistry.ObjectHolder("spadiy_plate")
     public static final Item PLATE_spadiy = null;
 
-    //Неифритовая оболочка
     @GameRegistry.ObjectHolder("neifrit_casing")
     public static final Item CASING_neifrit = null;
 
-    //Неифритовая пластина плотная
     @GameRegistry.ObjectHolder("neifrit_plate_dense")
     public static final Item PLATE_neifrit_compres = null;
 
-    //Спадиевая пластина плотная
     @GameRegistry.ObjectHolder("spadiy_plate_dense")
     public static final Item PLATE_spadiy_compres = null;
 
-    //Сжатый углепластик
     @GameRegistry.ObjectHolder("compressed_carbon_plate")
     public static final Item ITEM_Compressed_Carbon_Plate = null;
 
-    //Ультимативная микросхема
     @GameRegistry.ObjectHolder("ultimate_circuit")
     public static final Item ITEM_Ultimate_Circuit = null;
 
-    //Неифритовая катушка
     @GameRegistry.ObjectHolder("neifrit_coil")
     public static final Item ITEM_neifrit_coil = null;
 
-    //Пустая оболочка
     @GameRegistry.ObjectHolder("emptyshell")
     public static final Item ITEM_empshel = null;
 
-    //Преобразователь энергии
     @GameRegistry.ObjectHolder("powerconversion_module")
     public static final Item MODULE_power_convertion = null;
 
-    //Нагревающий элемент
     @GameRegistry.ObjectHolder("heatingrod")
     public static final Item ITEM_hetrod = null;
 
-    //Ядро ингибирования
     @GameRegistry.ObjectHolder("inhibition_core")
     public static final Item ITEM_The_inhibition = null;
 
-    //Амулет
     @GameRegistry.ObjectHolder("amulet_erbi")
     public static final Item ITEM_erbi_amulet = null;
 
@@ -125,91 +104,56 @@ public class ItemsRegistry {
     @GameRegistry.ObjectHolder("spadiy_sword")
     public static final Item TOOL_spadiy_sword = null;
 
-    /*
-    Побочные продукты
-    */
-
-    //Побочный продук (0 уровня)
     @GameRegistry.ObjectHolder("second_product_0")
     public static final Item GENERATOR_sp_0 = null;
 
-    //Побочный продук (1 уровня)
     @GameRegistry.ObjectHolder("second_product_1")
     public static final Item GENERATOR_sp_1 = null;
 
-    //Побочный продук (2 уровня)
     @GameRegistry.ObjectHolder("second_product_2")
     public static final Item GENERATOR_sp_2 = null;
 
-    //Побочный продук (3 уровня)
     @GameRegistry.ObjectHolder("second_product_3")
     public static final Item GENERATOR_sp_3 = null;
 
-    /*
-    Дальше идут охлаждалки
-    */
-
-    //Охлаждающий элемент (Уровень 1)
     @GameRegistry.ObjectHolder("heatsink_lvl.1")
     public static final Item  COMPONENT_1 = null;
 
-    //Охлаждающий элемент (Уровень 2)
     @GameRegistry.ObjectHolder("heatsink_lvl.2")
     public static final Item  COMPONENT_2 = null;
 
-    //Охлаждающий элемент (Уровень 3)
     @GameRegistry.ObjectHolder("heatsink_lvl.3")
     public static final Item  COMPONENT_3 = null;
 
-    //Охлаждающий элемент (Уровень 4)
     @GameRegistry.ObjectHolder("heatsink_lvl.4")
     public static final Item  COMPONENT_4= null;
 
-    //Охлаждающий элемент (Уровень 5)
     @GameRegistry.ObjectHolder("heatsink_lvl.5")
     public static final Item  COMPONENT_5= null;
 
-    //Охлаждающий элемент (Уровень 6)
     @GameRegistry.ObjectHolder("heatsink_lvl.6")
     public static final Item  COMPONENT_6= null;
 
-    //Охлаждающий элемент (Уровень 7)
     @GameRegistry.ObjectHolder("heatsink_lvl.7")
     public static final Item  COMPONENT_7= null;
 
-    /*
-    Улучшалки
-    */
-
-    //Улучшение объема
     @GameRegistry.ObjectHolder("upgrade_volecy")
     public static final Item UPGRADE_Volecy  = null;
 
-    //Улучшение скорости
     @GameRegistry.ObjectHolder("upgrade_speed")
     public static final Item UPGRADE_speed  = null;
 
-    //Улучшение для генератора
     @GameRegistry.ObjectHolder("upgrade_energy")
     public static final Item UPGRADE_energy  = null;
 
-    //Улучшение для генератора
     @GameRegistry.ObjectHolder("upgrade_capacity")
     public static final Item UPGRADE_capacity  = null;
 
-    //Улучшение для генератора
     @GameRegistry.ObjectHolder("upgrade_gift_energy")
     public static final Item UPGRADE_gift_energy  = null;
 
-    //Улучшение для генератора
     @GameRegistry.ObjectHolder("upgrade_creative_energy")
     public static final Item UPGRADE_creative_energy  = null;
-
-    /*
-    Предметы
-    */
-
-
 
     @SubscribeEvent
     public static void onRegistryItem(RegistryEvent.Register<Item> e) {

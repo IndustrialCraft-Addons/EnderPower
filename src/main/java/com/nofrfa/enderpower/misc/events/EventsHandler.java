@@ -30,9 +30,16 @@ public class EventsHandler {
         if(!world.isRemote) {
             for(Object entity : event.getAffectedEntities()) {
                 if(entity instanceof EntityItem) {
+                    assert false;
                     if(((EntityItem) entity).getItem().isItemEqual(new ItemStack(ItemsRegistry.DUST_spadiy))) {
-                        int newCount = getRandomNumber(((EntityItem) entity).getItem().getCount());
-                        EntityItem entityToSpawn = new EntityItem(world, ((EntityItem) entity).getPosition().getX(), ((EntityItem) entity).getPosition().getY(), ((EntityItem) entity).getPosition().getZ(), new ItemStack(ItemsRegistry.INGOT_spadiy, newCount));
+                        EntityItem entityToSpawn =
+                                new EntityItem(
+                                        world,
+                                        ((EntityItem) entity).getPosition().getX(),
+                                        ((EntityItem) entity).getPosition().getY(),
+                                        ((EntityItem) entity).getPosition().getZ(),
+                                        new ItemStack(ItemsRegistry.INGOT_spadiy, getRandomNumber(((EntityItem) entity).getItem().getCount()))
+                                );
                         entityToSpawn.setGlowing(true);
                         world.spawnEntity(entityToSpawn);
                     }
@@ -50,6 +57,7 @@ public class EventsHandler {
                 NonNullList<ItemStack> invPlayer = player.inventory.mainInventory;
 
                 for(ItemStack item2 : invPlayer) {
+                    assert false;
                     if(item2.isItemEqual(new ItemStack(ItemsRegistry.ITEM_erbi_amulet)))
                         entity.setAttackTarget(null);
                 }
@@ -64,6 +72,7 @@ public class EventsHandler {
            if(event.getSource().getTrueSource() instanceof EntityShulker) {
                NonNullList<ItemStack> invPlayer = ((EntityPlayer) entity).inventory.mainInventory;
                for (ItemStack item : invPlayer) {
+                   assert false;
                    if (item.isItemEqualIgnoreDurability(new ItemStack(ItemsRegistry.ITEM_erbi_amulet))) {
                        event.setCanceled(true);
                        item.damageItem(1, event.getEntityLiving());
@@ -88,17 +97,14 @@ public class EventsHandler {
 
     @SubscribeEvent
     public void playerInteract(PlayerInteractEvent.EntityInteractSpecific event) {
-        World world = event.getWorld();
-        if(!world.isRemote) {
+        if(!event.getWorld().isRemote) {
             Entity entity = event.getTarget();
-            EnumHand handIs = event.getHand();
             ItemStack itemIs = event.getItemStack();
             if (entity instanceof EntityShulkerBullet) {
-                if (itemIs.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent)) && handIs == EnumHand.MAIN_HAND) {
+                assert false;
+                if (itemIs.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent)) && event.getHand() == EnumHand.MAIN_HAND) {
                     EntityPlayer player = event.getEntityPlayer();
-                    if (player.dimension != 1) {
-                        player.sendMessage(new TextComponentString(I18n.format("chatinfo.tag") + I18n.format("event.fail")));
-                    } else {
+                    if (player.dimension == 1) {
                         NBTTagCompound inside = new NBTTagCompound();
                         inside.setString("inside", "shulker_projectile");
 
@@ -109,14 +115,15 @@ public class EventsHandler {
                         finalItem.setTagCompound(inside);
 
                         player.inventory.addItemStackToInventory(finalItem);
-                    }
+                    } else
+                        player.sendMessage(new TextComponentString(String.format("%s%s", I18n.format("chatinfo.tag"), I18n.format("event.fail"))));
                 }
             }
         }
     }
 
     private int getRandomNumber(int max_1) {
-        if(max_1 >= 4) {
+        if(max_1 >= 3) {
             return new Random().nextInt(max_1);
         } else return max_1;
     }

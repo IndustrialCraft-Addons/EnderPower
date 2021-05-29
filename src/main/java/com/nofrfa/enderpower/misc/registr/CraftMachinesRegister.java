@@ -22,8 +22,7 @@ public class CraftMachinesRegister {
             neifritpowder = new ItemStack(ItemsRegistry.DUST_neifrit),
             sp_0 = new ItemStack(ItemsRegistry.GENERATOR_sp_0),
             sp_1 = new ItemStack(ItemsRegistry.GENERATOR_sp_1),
-            sp_2 = new ItemStack(ItemsRegistry.GENERATOR_sp_2),
-            sp_3 = new ItemStack(ItemsRegistry.GENERATOR_sp_3);
+            sp_2 = new ItemStack(ItemsRegistry.GENERATOR_sp_2);
 
     public static void addMachineRecipe() {
         IRecipeInputFactory input = Recipes.inputFactory;
@@ -44,23 +43,21 @@ public class CraftMachinesRegister {
         addRollingRecipe(input.forStack(spadiy), spadiy_plate);
         addRollingRecipe(input.forStack(neifrit), neifrit_plate);
         addRollingRecipe(input.forStack(neifrit_plate), neifrit_casing);
-
-        //addExtrudingRecipe(input.forStack(new ItemStack(ItemsRegistry.INGOT_spadiy), 8), new ItemStack(ItemsRegistry.ITEM_deterrent));
     }
 
     private static void addCompressorRecipe(IRecipeInput input, ItemStack output) {
-        Recipes.compressor.addRecipe(input, (NBTTagCompound)null, false, output);
+        Recipes.compressor.addRecipe(input, null, false, output);
     }
 
     private static void addRollingRecipe(IRecipeInput input, ItemStack output) {
-        Recipes.metalformerRolling.addRecipe(input, (NBTTagCompound)null, false, output);
+        Recipes.metalformerRolling.addRecipe(input, null, false, output);
     }
 
     private static void addOneCentrifugeRecipe(IRecipeInput input, ItemStack output, NBTTagCompound nbt) {
-        Recipes.centrifuge.addRecipe(input, (NBTTagCompound)nbt, false, output);
+        Recipes.centrifuge.addRecipe(input, nbt, false, output);
     }
 
     private static void addMedCentrifugeRecipe(IRecipeInput input, ItemStack output, ItemStack output2, NBTTagCompound nbt) {
-        Recipes.centrifuge.addRecipe(input, (NBTTagCompound)nbt, false, output, output2);
+        Recipes.centrifuge.addRecipe(input, nbt, false, output, output2);
     }
 }

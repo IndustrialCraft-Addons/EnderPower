@@ -19,26 +19,26 @@ import java.util.List;
 
 public class EnderPowerCommand extends CommandBase {
     public static final String
-            NAME = "enderpower_give",//Имя команды, используется при вызове
-            USAGE = "/enderpower_give <detter_shulker>",//Шаблон вызова, выводится при выбрасывании WrongUsageException
-            ALIAS = "ep_give";//Допустимая вариация команды, таких может быть несколько
+            NAME = "enderpower_give",
+            USAGE = "/enderpower_give | ep_give <detter_shulker>",
+            USAGE_ROOT = "/enderpower_give | ep_give <detter_shulker | detter_enderfish>",
+            ALIAS = "ep_give";
 
     @Override
     public String getName() {
-        return this.NAME;
+        return NAME;
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return this.USAGE;
+        return Configs.GeneralSettings.root_access ? USAGE_ROOT : USAGE;
     }
 
     @Override
     public List<String> getAliases() {
+        List<String> aliases = new ArrayList<>();
 
-        List<String> aliases = new ArrayList<String>();//Так как допустимых вариаций может быть много, передаются они массивом строк
-
-        aliases.add(this.ALIAS);
+        aliases.add(ALIAS);
 
         return aliases;
     }
@@ -63,10 +63,11 @@ public class EnderPowerCommand extends CommandBase {
                 throw new WrongUsageException(this.getUsage(sender));
             }
 
-            EntityPlayer player = this.getCommandSenderAsPlayer(sender);
+            EntityPlayer player = getCommandSenderAsPlayer(sender);
             ItemStack mainHandItem = player.getHeldItemMainhand();
 
             if(args[0].equals("detter_shulker")) {
+                assert false;
                 if(mainHandItem.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent_filled)) || mainHandItem.isItemEqual(new ItemStack(ItemsRegistry.ITEM_deterrent))) {
                     if(!mainHandItem.hasTagCompound()) {
                         ItemStack finalItem = new ItemStack(ItemsRegistry.ITEM_deterrent_filled);
@@ -86,10 +87,12 @@ public class EnderPowerCommand extends CommandBase {
                     player.sendMessage(new TextComponentString(I18n.format("chatinfo.tag") + I18n.format("command.enderpower_give.detter.error")));
                 }
             }
+
             if(Configs.GeneralSettings.root_access) {
                 if (args[0].equals("detter_enderfish")) {
                     if(mainHandItem.getUnlocalizedName().equals("item.deterrent_filled")) {
                         if(!mainHandItem.hasTagCompound()) {
+                            assert false;
                             ItemStack finalItem = new ItemStack(ItemsRegistry.ITEM_deterrent_filled);
 
                             NBTTagCompound inside = new NBTTagCompound();
@@ -99,9 +102,9 @@ public class EnderPowerCommand extends CommandBase {
                             mainHandItem.setCount(-1);
 
                             player.inventory.addItemStackToInventory(finalItem);
-                            player.sendMessage(new TextComponentString(I18n.format("chatinfo.tag") + "EnderFish was artificially added to the \u00A7dDeterrent"));
+                            player.sendMessage(new TextComponentString(String.format("%sEnderFish was artificially added to the §dDeterrent", I18n.format("chatinfo.tag"))));
                         } else {
-                            player.sendMessage(new TextComponentString(I18n.format("chatinfo.tag") + I18n.format("command.enderpower_give.nbt.error")));
+                            player.sendMessage(new TextComponentString(String.format("%s%s", I18n.format("chatinfo.tag"), I18n.format("command.enderpower_give.nbt.error"))));
                         }
                     } else {
                         player.sendMessage(new TextComponentString(I18n.format("chatinfo.tag") + I18n.format("command.enderpower_give.detter.error")));

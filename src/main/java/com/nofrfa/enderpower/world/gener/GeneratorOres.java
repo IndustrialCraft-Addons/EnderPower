@@ -20,30 +20,14 @@ public class GeneratorOres implements IWorldGenerator {
         neifritOre = new WorldGenMinable(BlocksRegister.NeifritOre.getDefaultState(),  2, BlockMatcher.forBlock(Blocks.END_STONE));
     }
 
-    public void generate(
-            Random random,
-            int chunkX,
-            int chunkZ,
-            World world,
-            IChunkGenerator chunkGenerator,
-            IChunkProvider chunkProvider
-    ) {
+    public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         if (world.provider.getDimension() != 1) {
             return;
         }
         runGenerator(neifritOre, world, random, chunkX, chunkZ, 4, 0, 256);
     }
 
-    private void runGenerator(
-            WorldGenerator gen,
-            World world,
-            Random rand,
-            int chunkX,
-            int chunkZ,
-            int chance,
-            int minHeight,
-            int maxHeight
-    ) {
+    private void runGenerator(WorldGenerator gen, World world, Random rand, int chunkX, int chunkZ, int chance, int minHeight, int maxHeight) {
         if (minHeight > maxHeight || minHeight < 0 || maxHeight > 256) {
             throw new IllegalArgumentException("Ore generated out of bounds");
         }

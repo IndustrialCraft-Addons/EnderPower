@@ -74,8 +74,6 @@ public class ModUtils {
         return returnString;
     }
 
-
-
     public static final Item.ToolMaterial ToolMaterial_univ =
             EnumHelper.addToolMaterial(
                     "enderpower:tool", //name

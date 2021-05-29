@@ -28,16 +28,4 @@ public class BlockList extends Block {
     {
         return false;
     }
-
-    /*
-    @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(!world.isRemote){
-            world.setBlockState(new BlockPos(pos.getX(), pos.getY()+1, pos.getZ()), BlocksRegister.NEW_STONE.getDefaultState());
-
-            playerIn.sendMessage(new TextComponentString("BlockId = %p".replace("%p", "dada")));
-        }
-        return true;
-    }
-     */
 }

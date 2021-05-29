@@ -13,7 +13,7 @@ public class SecondProducts_1 extends Item {
     }
 
     @Override
-    public int getItemBurnTime(ItemStack itemStack) { // Переопределение времени горения.
-        return 26000; //200 - это кол-во тиков за 1 предмет. 400 - это 2 предмета, 600 - это 3 и так далее!
+    public int getItemBurnTime(ItemStack itemStack) {
+        return 26000;
     }
 }

@@ -1,7 +1,6 @@
 package com.nofrfa.enderpower.misc.registr;
 
 import com.nofrfa.enderpower.EnderPower;
-import com.nofrfa.enderpower.misc.RarityList;
 import com.nofrfa.enderpower.tile.machines.destructor.DestructorTE;
 import com.nofrfa.enderpower.tile.machines.erbigen.ErbiGeneratorTE;
 import com.nofrfa.enderpower.tile.machines.gasconverter.GasConverterTE;
@@ -20,9 +19,9 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 
 public enum AllMachinesTE implements ITeBlock {
-    gas_converter(GasConverterTE.class, 0, RarityList.defaultRarity),
-    destructor(DestructorTE.class, 1, RarityList.defaultRarity),
-    erbi_generator(ErbiGeneratorTE.class, 2, RarityList.defaultRarity);
+    gas_converter(GasConverterTE.class, 0, EnderPower.defaultRarity),
+    destructor(DestructorTE.class, 1, EnderPower.defaultRarity),
+    erbi_generator(ErbiGeneratorTE.class, 2, EnderPower.defaultRarity);
 
     private final Class AMTEClass;
     private final int itemMeta;

@@ -6,7 +6,10 @@ import ic2.api.event.TeBlockFinalCallEvent;
 import ic2.core.block.BlockTileEntity;
 import ic2.core.block.TeBlockRegistry;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.EnumRarity;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -28,6 +31,8 @@ public class EnderPower {
     public static final String STABLEVERSION = "1.12.2";
 
     public static Logger log;
+
+    public static final EnumRarity defaultRarity = EnumHelper.addRarity("matter_semiFluids_rarity", TextFormatting.BLUE, "enderpower_rarity");
 
     @SidedProxy(
             clientSide = "com.nofrfa.enderpower.proxy.ClientProxy",
@@ -63,8 +68,7 @@ public class EnderPower {
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         proxy.init(event);
     }
 

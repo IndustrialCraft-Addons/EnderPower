@@ -1,16 +1,11 @@
 package com.nofrfa.enderpower.misc.jei.destructor;
 
-import com.nofrfa.enderpower.misc.registr.ItemsRegistry;
 import com.nofrfa.enderpower.tile.machines.destructor.DestructorTE;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import sun.security.krb5.internal.crypto.Des;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DestructorRecipeInit {
@@ -70,6 +65,7 @@ public class DestructorRecipeInit {
     private static ItemStack is(Item item, int amount) {
         return new ItemStack(item, amount);
     }
+
     private static ItemStack is(Item item) {
         return new ItemStack(item, 1);
     }
