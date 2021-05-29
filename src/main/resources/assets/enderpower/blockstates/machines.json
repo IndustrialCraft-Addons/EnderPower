@@ -6,8 +6,8 @@
       "gas_converter_active": {"model": "enderpower:gas_converter_active"},
       "destructor": {"model":  "enderpower:destructor"},
       "destructor_active": {"model":  "enderpower:destructor_active"},
-      "erbi_generator": {"model":  "enderpower:destructor"},
-      "erbi_generator_active": {"model":  "enderpower:destructor_active"}
+      "erbi_generator": {"model":  "enderpower:erbi_generator"},
+      "erbi_generator_active": {"model":  "enderpower:erbi_generator_active"}
     },
     "facing": {
       "down": { "x": 90 },
