@@ -17,14 +17,14 @@ public class GeneratorOres implements IWorldGenerator {
     private final WorldGenerator neifritOre;
 
     public GeneratorOres() {
-        neifritOre = new WorldGenMinable(BlocksRegister.NeifritOre.getDefaultState(),  2, BlockMatcher.forBlock(Blocks.END_STONE));
+        neifritOre = new WorldGenMinable(BlocksRegister.NeifritOre.getDefaultState(),  6, BlockMatcher.forBlock(Blocks.END_STONE));
     }
 
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
         if (world.provider.getDimension() != 1) {
             return;
         }
-        runGenerator(neifritOre, world, random, chunkX, chunkZ, 4, 0, 256);
+        runGenerator(neifritOre, world, random, chunkX, chunkZ, 15, 0, 256);
     }
 
     private void runGenerator(WorldGenerator gen, World world, Random rand, int chunkX, int chunkZ, int chance, int minHeight, int maxHeight) {
