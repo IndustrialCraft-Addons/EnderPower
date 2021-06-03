@@ -4,6 +4,7 @@ import com.nofrfa.enderpower.misc.Configs;
 import com.nofrfa.enderpower.misc.registr.ItemsRegistry;
 import com.nofrfa.enderpower.tile.machines.destructor.gui.ContainerDestr;
 import com.nofrfa.enderpower.tile.machines.destructor.gui.GuiDestr;
+import ic2.api.item.IC2Items;
 import ic2.api.tile.IWrenchable;
 import ic2.core.ContainerBase;
 import ic2.core.IHasGui;
@@ -40,12 +41,15 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     private int timer;
 
     public static ItemStack[] inputItem = {
-            is(ItemsRegistry.DUST_spadiy, 1),
-            is(ItemsRegistry.GENERATOR_sp_2, 4)
+            is(ItemsRegistry.DUST_spadiy),
+            is(ItemsRegistry.GENERATOR_sp_2, 4),
+            IC2Items.getItem("ingot", "steel")
     };
+
     public static ItemStack[][] outputItem = {
-            {is(ItemsRegistry.INGOT_spadiy, 1)},
-            {is(ItemsRegistry.GENERATOR_sp_3, 1)}
+            {is(ItemsRegistry.INGOT_spadiy)},
+            {is(ItemsRegistry.GENERATOR_sp_3)},
+            {is(ItemsRegistry.DUST_steel)}
     };
 
     public DestructorTE() {
@@ -182,6 +186,10 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
 
     private static ItemStack is(Item item, int amount){
         return new ItemStack(item, amount);
+    }
+
+    private static ItemStack is(Item item){
+        return new ItemStack(item, 1);
     }
 
     private static ItemStack is(Block item, int amount){
