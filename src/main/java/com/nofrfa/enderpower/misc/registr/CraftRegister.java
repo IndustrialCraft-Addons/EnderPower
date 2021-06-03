@@ -1,9 +1,11 @@
 package com.nofrfa.enderpower.misc.registr;
 
 import com.nofrfa.enderpower.EnderPower;
+import com.nofrfa.enderpower.misc.Configs;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -23,7 +25,7 @@ public class CraftRegister {
             spadiy = new ItemStack(ItemsRegistry.INGOT_spadiy),
             upgrade = IC2Items.getItem("upgrade", "transformer"),
             lapotron_crystal = IC2Items.getItem("lapotron_crystal"),
-            neifritpowder = new ItemStack(ItemsRegistry.DUST_neifrit, 4),
+            neifritpowder = new ItemStack(ItemsRegistry.DUST_neifrit),
             dust_lapis = IC2Items.getItem("dust","lapis"),
             lithiumdust = IC2Items.getItem("dust","lithium"),
             energydust = IC2Items.getItem("dust","energium"),
@@ -32,11 +34,12 @@ public class CraftRegister {
             ukrglass = IC2Items.getItem("glass","reinforced"),
             heatingrod = new ItemStack(ItemsRegistry.ITEM_hetrod),
             ukrkamen = IC2Items.getItem("resource","reinforced_stone"),
-            inhibiton_core = new ItemStack(ItemsRegistry.ITEM_The_inhibition), //Made in Mathew
+            inhibiton_core = new ItemStack(ItemsRegistry.ITEM_The_inhibition),
             spadyplate = new ItemStack(ItemsRegistry.PLATE_spadiy),
-            spadiydust = new ItemStack(ItemsRegistry.DUST_spadiy, 3),
+            spadiydust = new ItemStack(ItemsRegistry.DUST_spadiy),
             inhibition_core = new ItemStack(ItemsRegistry.ITEM_The_inhibition),
             neifrit_compres = new ItemStack(ItemsRegistry.PLATE_neifrit_compres),
+            neifrit_plate = new ItemStack(ItemsRegistry.PLATE_neifrit),
             end_crystal = new ItemStack(Items.END_CRYSTAL),
             projectile = new ItemStack(ItemsRegistry.ITEM_deterrent),
             gold_ingot = new ItemStack(Items.GOLD_INGOT),
@@ -84,142 +87,84 @@ public class CraftRegister {
             Energy_storage = IC2Items.getItem("upgrade","energy_storage"),
             steel_dust = new ItemStack(ItemsRegistry.DUST_steel),
             diamond_dust = IC2Items.getItem("dust", "diamond"),
-            electrical_motor = IC2Items.getItem("crafting","electric_motor");
+            electrical_motor = IC2Items.getItem("crafting","electric_motor"),
+            obsidian_dust = IC2Items.getItem("dust", "obsidian"),
+            obsidian = new ItemStack(Blocks.OBSIDIAN),
+            steel_ingot = IC2Items.getItem("ingot", "steel");
 
     public static void addCraftingRecipes() {
-        addShapedRecipes((ult_circuit),
-                "BCB",
-                "CAC",
-                "BCB",
-                'A', adv_circuit, 'B', neifrit, 'C', iodine);
-
-        addShapedRecipes((ultmachine),
-                "ACA",
-                "ABA",
-                "ACA",
-                'A', compressed_carbon_plate, 'B', adv_casing_machine, 'C', ult_circuit);
-
-        addShapedRecipes((power_convertion),
-                "ABA",
-                "CDC",
-                "ABA",
-                'A', neifrit_coil, 'B', upgrade, 'C', lapotron_crystal, 'D', adv_circuit);
-
-        addShapedRecipes((neifritpowder),
-                "AB ",
-                "CD ",
-                "   ",
-                'A', dust_lapis, 'B', lithiumdust, 'C', energydust, 'D', golddust);
-
-        addShapedRecipes((emptybich),
-                "ABA",
-                "A A",
-                "ABA",
-                'A', ukrglass, 'B', neifrit);
-
-        addShapedRecipes((heatingrod),
-                "ADA",
-                "BCB",
-                "ADA",
-                'A', ukrkamen, 'B', ukrglass, 'D', neifrit_coil, 'C', emptybich);
-
-        addShapedRecipes((neifrit_coil),
-                "ABA",
-                "ABA",
-                "ABA",
-                'A', neifrit, 'B', spadiy);
-
-        addShapedRecipes((projectile),
-                "DBD",
-                "ACA",
-                "AAA",
-                'A', neifrit_compres, 'B', inhibiton_core, 'C', end_crystal, 'D', spadyplate);
-
-        addShapedRecipes((inhibition_core),
-                "CBC",
-                "CBC",
-                "AAA",
-                'A', neifrit_compres, 'B', gold_ingot, 'C', spadyplate);
-
-        addShapedRecipes((HEATSINK_1),
-                "ABA",
-                "DCD",
-                "DED",
-                'A', HEATSINK_neifrit, 'B', HEATSINK_gold, 'C', "ingotSilver", 'D', HEATSINK_neifrit_casing, 'E', HEATSINK_coolant);
-
-        addShapedRecipes((HEATSINK_2),
-                "ADA",
-                "DBD",
-                "CDC",
-                'A', "ingotCopper", 'B', HEATSINK_1, 'C', HEATSINK_gold, 'D', HEATSINK_neifrit_casing);
-
-        addShapedRecipes((HEATSINK_3),
-                "DBD",
-                "EAE",
-                "BCB",
-                'A', HEATSINK_2, 'B', "ingotSilver", 'C', HEATSINK_gold, 'D', HEATSINK_spadiy, 'E', HEATSINK_neifrit_plate);
-
-        addShapedRecipes((HEATSINK_4),
-                "DBD",
-                "BAB",
-                "DBD",
-                'A', HEATSINK_3, 'B', HEATSINK_neifrit_plate_compress, 'D', HEATSINK_spadiy_plate_compress);
-
-        addShapedRecipes((HEATSINK_5),
-                "DCB",
-                "CAC",
-                "BCD",
-                'A', HEATSINK_4, 'B', HEATSINK_ult_cirtcuit, 'C', HEATSINK_reactor_exchanger, 'D', HEATSINK_reactor_heat_vent);
-
-        addShapedRecipes((HEATSINK_6),
-                "CBD",
-                "BAB",
-                "DBC",
-                'A', HEATSINK_5, 'B', HEATSINK_component_exchanger, 'C', HEATSINK_overclocked_heat_vent, 'D', HEATSINK_iridium_plate);
-
-        addShapedRecipes((HEATSINK_7),
-                "CDB",
-                "DAD",
-                "BDC",
-                'A', HEATSINK_6, 'B', Iridium_Reflector, 'D', HEATSINK_advanced_heat_exchanger, 'C', HEATSINK_advanced_hear_vent);
-
-        addShapedRecipes((FastQ),
-                "BCB",
-                "BEB",
-                "ABA",
-                'A', Iridium_Reflector, 'B', upgrade_neifrit, 'C', lithium_dust, 'E', upgrade_overlocker);
-
-        addShapedRecipes((Vy_upgrade),
-                "DAD",
-                "DCD",
-                "BDB",
-                'A', steel_dust, 'B', Energy_storage, 'D', diamond, 'C', electrical_motor);
-
-        addShapedRecipes((spadiydust),
-                "DDD",
+        assert false;
+        addShapedRecipes((new ItemStack(ItemsRegistry.DUST_spadiy, 4)),
                 "AAA",
                 "BBB",
-                'A', "dustLead", 'B', steel_dust, 'D', diamond_dust);
+                "CCC",
+                'A', steel_dust, 'B', obsidian_dust, 'C', diamond_dust);
 
-        addShapedRecipes((gas_converter),
+        addShapedRecipes((new ItemStack(ItemsRegistry.DUST_spadiy, 1)),
+                "A  ",
+                "B  ",
+                "C  ",
+                'A', "ingotSteel", 'B', "obsidian", 'C', "gemDiamond");
+
+        addShapelessRecipe((new ItemStack(ItemsRegistry.DUST_neifrit, 4)), dust_lapis, lithiumdust, energydust, golddust);
+
+        addShapedRecipes((new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit, 1)),
                 "ABA",
                 "CDC",
-                "EBE",
-                'A', irid_pate, 'B', electrical_motor, 'C', ult_circuit, 'D', ultmachine, 'E', compressed_carbon_plate);
-
-        addShapedRecipes((destructor),
-                "AEA",
-                "CDC",
                 "ABA",
-                'A', irid_pate, 'B', heatingrod, 'C', ult_circuit, 'D', ultmachine, 'E', power_convertion);
+                'A', spadiydust, 'B', adv_circuit, 'C', dust_lapis, 'D', IC2Items.getItem("misc_resource", "iridium_shard"));
 
-        addShapelessRecipe(erbi_ingot, sp_3, sp_3);
+        addShapedRecipes((new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit, 1)),
+                "ACA",
+                "BDB",
+                "ACA",
+                'A', spadiydust, 'B', adv_circuit, 'C', dust_lapis, 'D', IC2Items.getItem("misc_resource", "iridium_shard"));
 
-        addShapedRecipes((amulet_erbi),
-                "ABA",
+        addShapedRecipes((new ItemStack(BlocksRegister.BLOCK_UltimateMachineCasing, 1)),
+                "BDB",
                 "BCB",
-                "ABA",
-                'A', erbi_ingot, 'B', irid_pate, 'C', ult_circuit);
+                "BAB",
+                'A', adv_casing_machine, 'B', compressed_carbon_plate, 'C', ult_circuit, 'D', neifrit_plate);
+
+        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_sword),
+                " A ",
+                " A ",
+                " B ",
+                'A', spadiy, 'B', "stickWood");
+
+        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_sword),
+                " A ",
+                " A ",
+                " B ",
+                'A', spadiy, 'B', "stickWood");
+
+        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_pickaxe),
+                "AAA",
+                " B ",
+                " B ",
+                'A', spadiy, 'B', "stickWood");
+
+        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_axe),
+                " AA",
+                " BA",
+                " B ",
+                'A', spadiy, 'B', "stickWood");
+
+        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_axe),
+                "AA ",
+                "AB ",
+                " B ",
+                'A', spadiy, 'B', "stickWood");
+
+        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_spade),
+                " A ",
+                " B ",
+                " B ",
+                'A', spadiy, 'B', "stickWood");
+
+        //rofl
+        if(Configs.GeneralSettings.root_access)
+            addShapelessRecipe((new ItemStack(ItemsRegistry.UPGRADE_creative_energy, 4)), is(Blocks.BEDROCK),is(Blocks.BEDROCK),is(Blocks.BEDROCK),is(Blocks.BEDROCK),is(Blocks.BEDROCK),is(Blocks.BEDROCK));
     }
 
     public static void addFurnaceRecipes() {

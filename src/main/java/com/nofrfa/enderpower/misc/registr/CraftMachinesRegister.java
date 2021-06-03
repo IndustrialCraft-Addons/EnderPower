@@ -37,12 +37,12 @@ public class CraftMachinesRegister {
         addCompressorRecipe(input.forStack(neifritpowder, 6), neifrit);
         addCompressorRecipe(input.forStack(sp_0, 2), sp_1);
 
-        addMedCentrifugeRecipe(input.forOreDict("ingotSteel", 4), steel_powder, iron_dust, nbt);
-        addOneCentrifugeRecipe(input.forStack(sp_1, 4), sp_2, nbt);
-
         addRollingRecipe(input.forStack(spadiy), spadiy_plate);
         addRollingRecipe(input.forStack(neifrit), neifrit_plate);
         addRollingRecipe(input.forStack(neifrit_plate), neifrit_casing);
+
+        addMaceratorRecipe(input.forStack(neifrit), new ItemStack(ItemsRegistry.DUST_neifrit, 6));
+        addMaceratorRecipe(input.forStack(new ItemStack(BlocksRegister.NeifritOre)), new ItemStack(ItemsRegistry.DUST_neifrit, 9));
     }
 
     private static void addCompressorRecipe(IRecipeInput input, ItemStack output) {
@@ -53,11 +53,7 @@ public class CraftMachinesRegister {
         Recipes.metalformerRolling.addRecipe(input, null, false, output);
     }
 
-    private static void addOneCentrifugeRecipe(IRecipeInput input, ItemStack output, NBTTagCompound nbt) {
-        Recipes.centrifuge.addRecipe(input, nbt, false, output);
-    }
-
-    private static void addMedCentrifugeRecipe(IRecipeInput input, ItemStack output, ItemStack output2, NBTTagCompound nbt) {
-        Recipes.centrifuge.addRecipe(input, nbt, false, output, output2);
+    private static void addMaceratorRecipe(IRecipeInput input, ItemStack output) {
+        Recipes.macerator.addRecipe(input, null, false, output);
     }
 }
