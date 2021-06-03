@@ -51,5 +51,9 @@ public class ItemList extends Item {
                 tooltip.add(I18n.format("deterrent.shift"));
             }
         }
+
+        if(stack.isItemEqual(new ItemStack(ItemsRegistry.UPGRADE_creative_energy)) && Configs.GeneralSettings.root_access) {
+            tooltip.add("root_access enabled: has an unreal recipe");
+        }
     }
 }
