@@ -38,8 +38,8 @@ public class JEIMain implements IModPlugin {
         registry.handleRecipes(GasConverterRecipeInit.class, GasConverterWrapper::new, GasConverterCategory.UID);
         registry.addRecipeCatalyst(EnderPower.machines.getItemStack(AllMachinesTE.gas_converter), GasConverterCategory.UID);
 
-
         registry.addDescription(new ItemStack(ItemsRegistry.ITEM_deterrent), I18n.format("jei.desc.projectile_holder"));
         registry.addDescription(new ItemStack(ItemsRegistry.DUST_spadiy), I18n.format("jei.desc.dust_spidiy"));
+        registry.addDescription(new ItemStack(ItemsRegistry.GENERATOR_sp_0), I18n.format("jei.desc.sp0"));
     }
 }
