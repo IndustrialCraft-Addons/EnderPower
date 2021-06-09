@@ -2,46 +2,29 @@ package com.nofrfa.enderpower.misc;
 
 import ic2.core.IC2;
 import ic2.core.util.StackUtil;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockCommandBlock;
+import net.minecraft.block.BlockStructure;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
-
-import javax.annotation.Nonnull;
+import net.minecraftforge.event.world.BlockEvent;
 
 public class ModUtils {
-    public static String getString(float number) {
-        float g = number;
-        float gg;
-        int i = 0;
-
-        for (; g >= 10; i++) {
-            g = g / 10;
-        }
-
-        String returnString = "0";
-
-        if (i >= 0 && i < 3 && number <= 1000) {
-            gg = number;
-            returnString = String.format("%.0f", gg);
-        } else if (i >= 3 && i < 6 && number >= 1000 && number < 1000000) {
-            gg = number / (1000);
-            returnString = String.format("%.2fK", gg);
-        } else if (i >= 6 && i < 9 && number >= 1000000 && number < 1000000000) {
-            gg = number / (1000000);
-            returnString = String.format("%.2fM", gg);
-        } else if (i >= 9 && i < 12 && number >= 1000000000 && number < 2100000000) {
-            gg = number / (1000000000);
-            returnString = String.format("%.2fG", gg);
-        }
-        return returnString;
-    }
-
     public static String getString(double number) {
         String returnString = "0";
         if (number <= 1000) {
@@ -93,7 +76,11 @@ public class ModUtils {
                     30 //Enchantability
             );
 
-    public static void enchanterHelper(World worldIn, EntityPlayer playerIn, EnumHand handIn, @Nonnull Enchantment ench1) {
+    /**
+     * use {@link #helperChangeMode(EntityPlayer, EnumHand, String, int)}
+     */
+    @Deprecated
+    public static void enchanterHelper(World worldIn, EntityPlayer playerIn, EnumHand handIn, Enchantment ench1) {
         ItemStack stack = StackUtil.get(playerIn, handIn);
 
         if(IC2.keyboard.isSneakKeyDown(playerIn)) {
@@ -109,4 +96,96 @@ public class ModUtils {
             new ActionResult<>(EnumActionResult.SUCCESS, stack);
         }
     }
+
+    public static boolean helperHasMode(ItemStack stack1, String nbtKey) {
+        assert false;
+        return stack1.hasTagCompound() && stack1.getTagCompound().hasKey(nbtKey) && stack1.getTagCompound().getInteger(nbtKey) != 0;
+    }
+
+    public static void helperChangeMode(EntityPlayer player, EnumHand hand, String nbtKey, int maxModes) {
+        ItemStack item = player.getHeldItem(hand);
+        assert false;
+        if(item.hasTagCompound()) {
+            if (item.getTagCompound().hasKey(nbtKey)) {
+                int nowSize = item.getTagCompound().getInteger(nbtKey);
+                item.getTagCompound().setInteger(nbtKey, (nowSize + 1) % maxModes);
+            }
+        } else {
+            NBTTagCompound nbt = new NBTTagCompound();
+            nbt.setInteger(nbtKey, 1);
+
+            item.setTagCompound(nbt);
+        }
+        new ActionResult<>(EnumActionResult.SUCCESS, item);
+    }
+
+    public static void helperBlockDestroyer(ItemStack stack, World world, BlockPos pos, EntityLivingBase entityLiving, String nameHarvestTool, int plusDigSize, String nbtKey) {
+        if(!(entityLiving instanceof EntityPlayer) || world.isRemote)
+            return;
+
+        assert false;
+        if(!stack.hasTagCompound() && !stack.getTagCompound().hasKey(nbtKey))
+            return;
+
+        if(stack.getTagCompound().getInteger(nbtKey) == 0)
+            return;
+
+        EntityPlayer player = (EntityPlayer) entityLiving;
+        EnumFacing facing = entityLiving.getHorizontalFacing();
+
+        if(entityLiving.rotationPitch < -45.0F)     facing = EnumFacing.UP;
+        else if(entityLiving.rotationPitch > 45.0F) facing = EnumFacing.DOWN;
+
+        boolean yAxis = facing.getAxis() == EnumFacing.Axis.Y;
+        boolean xAxis = facing.getAxis() == EnumFacing.Axis.X;
+
+        for(int index = -plusDigSize; index <= plusDigSize; ++index) {
+            for (int index1 = -plusDigSize; index1 <= plusDigSize; ++index1) {
+                if (index == 0 && index1 == 0) continue;
+
+                BlockPos pos1;
+                if(yAxis)       pos1 = pos.add(index, 0, index1);
+                else if(xAxis)  pos1 = pos.add(0, index, index1);
+                else            pos1 = pos.add(index, index1, 0);
+
+                IBlockState state1 = world.getBlockState(pos1);
+                if(state1.getBlockHardness(world, pos1) > 0.0F) {
+                    BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(world, pos1, state1, player);
+                    MinecraftForge.EVENT_BUS.post(event);
+                    if(!event.isCanceled()) {
+                        Block block = state1.getBlock();
+                        if(!block.getHarvestTool(state1).equalsIgnoreCase(nameHarvestTool))
+                            continue;
+
+                        if((block instanceof BlockCommandBlock || block instanceof BlockStructure) && !player.canUseCommandBlock()) {
+                            world.notifyBlockUpdate(pos1, state1, state1, 3);
+                            continue;
+                        }
+
+                        if(stack.getTagCompound().getInteger(nbtKey) != 2) {
+                            goHarvestDestroy(stack, block, world, player, pos1, state1);
+                        } else {
+                            boolean hasTile = block.hasTileEntity(state1);
+                            if(hasTile) {
+                                player.sendMessage(new TextComponentString(String.format("%s%s [x:%s | y:%s | z:%s]", I18n.format("chatinfo.tag"), "TileEntity Detected", pos1.getX(), pos1.getY(), pos1.getZ())));
+                            } else {
+                                goHarvestDestroy(stack, block, world, player, pos1, state1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void goHarvestDestroy(ItemStack stack1, Block block1, World world1, EntityPlayer player1, BlockPos pos2, IBlockState state2) {
+        boolean harvest = block1.canHarvestBlock(world1, pos2, player1);
+        boolean destroy = block1.removedByPlayer(state2, world1, pos2, player1, harvest);
+        if(harvest && destroy) {
+            block1.harvestBlock(world1, player1, pos2, state2, null, stack1);
+            block1.onBlockDestroyedByPlayer(world1, pos2, state2);
+            stack1.damageItem(1, player1);
+        }
+    }
+
 }
