@@ -4,24 +4,28 @@ import com.nofrfa.enderpower.misc.registr.ItemsRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityShulker;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityShulkerBullet;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Random;
+import java.util.SplittableRandom;
 
 public class EventsHandler {
     @SubscribeEvent
@@ -120,6 +124,53 @@ public class EventsHandler {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public void entityDie(LivingDeathEvent event) {
+        if(event.getSource().getTrueSource() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
+
+            assert false;
+            if(!player.getHeldItem(player.getActiveHand()).isItemEqual(new ItemStack(ItemsRegistry.TOOL_spadiy_sword))) return;
+
+            SplittableRandom random = new SplittableRandom();
+            if(random.nextInt(1, 101) <= 40) return;
+        
+
+            EntityLivingBase entity = event.getEntityLiving();
+            World world = entity.getEntityWorld();
+            BlockPos pos;
+            ItemStack stack;
+            
+            if(entity instanceof EntitySkeleton) {
+                pos = getPosOf(entity);
+                stack = new ItemStack(Items.SKULL, 1, 0);
+            }
+            else if(entity instanceof EntityZombie) {
+                pos = getPosOf(entity);
+                stack = new ItemStack(Items.SKULL, 1, 2);
+            }
+            else if(entity instanceof EntityCreeper) {
+                pos = getPosOf(entity);
+                stack = new ItemStack(Items.SKULL, 1, 4);
+            }
+            else if(entity instanceof EntityWitherSkeleton) {
+                pos = getPosOf(entity);
+                stack = new ItemStack(Items.SKULL, 1, 1);
+            }
+            else {
+                return;
+            }
+
+            EntityItem entityToSpawn = new EntityItem(world, pos.getX(), pos.getY(), pos.getY(), stack);
+            entityToSpawn.setGlowing(true);
+            world.spawnEntity(entityToSpawn);
+        }
+    }
+
+    private BlockPos getPosOf(Entity entity1) {
+        return entity1.getPosition();
     }
 
     private int getRandomNumber(int max_1) {
