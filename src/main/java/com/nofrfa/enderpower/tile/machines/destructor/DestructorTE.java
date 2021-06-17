@@ -43,13 +43,17 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     public static ItemStack[] inputItem = {
             is(ItemsRegistry.DUST_spadiy),
             is(ItemsRegistry.GENERATOR_sp_2, 4),
-            IC2Items.getItem("ingot", "steel")
+            is(ItemsRegistry.GENERATOR_sp_1, 4),
+            IC2Items.getItem("ingot", "steel"),
+            is(ItemsRegistry.INGOT_spadiy, 2)
     };
 
     public static ItemStack[][] outputItem = {
             {is(ItemsRegistry.INGOT_spadiy)},
             {is(ItemsRegistry.GENERATOR_sp_3)},
-            {is(ItemsRegistry.DUST_steel)}
+            {is(ItemsRegistry.GENERATOR_sp_2)},
+            {is(ItemsRegistry.DUST_steel)},
+            {is(ItemsRegistry.DUST_spadiy)}
     };
 
     public DestructorTE() {

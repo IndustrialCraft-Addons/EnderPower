@@ -100,7 +100,7 @@ public class CraftRegister {
                 "CCC",
                 'A', steel_dust, 'B', obsidian_dust, 'C', diamond_dust);
 
-        addShapedRecipes((new ItemStack(ItemsRegistry.DUST_spadiy, 1)),
+        addShapedRecipes((new ItemStack(ItemsRegistry.DUST_spadiy)),
                 "A  ",
                 "B  ",
                 "C  ",
@@ -108,22 +108,22 @@ public class CraftRegister {
 
         addShapelessRecipe((new ItemStack(ItemsRegistry.DUST_neifrit, 4)), dust_lapis, lithiumdust, energydust, golddust);
 
-        addShapedRecipes((new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit, 1)),
+        addShapedRecipes((new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit)),
                 "ABA",
                 "CDC",
                 "ABA",
                 'A', spadiydust, 'B', adv_circuit, 'C', dust_lapis, 'D', IC2Items.getItem("misc_resource", "iridium_shard"));
 
-        addShapedRecipes((new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit, 1)),
+        addShapedRecipes((new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit)),
                 "ACA",
                 "BDB",
                 "ACA",
                 'A', spadiydust, 'B', adv_circuit, 'C', dust_lapis, 'D', IC2Items.getItem("misc_resource", "iridium_shard"));
 
-        addShapedRecipes((new ItemStack(BlocksRegister.BLOCK_UltimateMachineCasing, 1)),
+        addShapedRecipes((new ItemStack(BlocksRegister.BLOCK_UltimateMachineCasing)),
                 "BDB",
-                "BCB",
-                "BAB",
+                "CAC",
+                "BDB",
                 'A', adv_casing_machine, 'B', compressed_carbon_plate, 'C', ult_circuit, 'D', neifrit_plate);
 
         addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_sword),
@@ -161,6 +161,12 @@ public class CraftRegister {
                 " B ",
                 " B ",
                 'A', spadiy, 'B', "stickWood");
+
+        addShapedRecipes(is(ItemsRegistry.ITEM_neifrit_coil),
+                "ABA",
+                "ABA",
+                "ABA",
+                'A', neifrit, 'B', spadiy);
 
         //rofl
         if(Configs.GeneralSettings.root_access)
