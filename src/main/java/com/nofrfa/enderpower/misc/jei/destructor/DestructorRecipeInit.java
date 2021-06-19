@@ -6,6 +6,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DestructorRecipeInit {
@@ -53,12 +54,9 @@ public class DestructorRecipeInit {
     }
 
     public static void initRecipes() {
-        for(int i = 0; i < DestructorTE.inputItem.length; i++) {
-            List<ItemStack> list = new ArrayList<>();
-            for(int i1 = 0; i1 < DestructorTE.outputItem[i].length; i1++) {
-                list.add(is(DestructorTE.outputItem[i][i1].getItem(), DestructorTE.outputItem[i][i1].getCount()));
-            }
-            addRecipe(DestructorTE.inputItem[i], list);
+        for(int i = 0; i < DestructorTE.Recipes.getRecipes().size(); i++) {
+            List<ItemStack> list = new ArrayList<>(Arrays.asList(DestructorTE.Recipes.getRecipes().get(i).getOutput()));
+            addRecipe(DestructorTE.Recipes.getRecipes().get(i).getInput(), list);
         }
     }
 

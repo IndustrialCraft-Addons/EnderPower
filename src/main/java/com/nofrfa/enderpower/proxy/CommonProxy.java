@@ -4,6 +4,7 @@ import com.nofrfa.enderpower.misc.events.EventsHandler;
 import com.nofrfa.enderpower.misc.jei.destructor.DestructorRecipeInit;
 import com.nofrfa.enderpower.misc.jei.gasconverter.GasConverterRecipeInit;
 import com.nofrfa.enderpower.misc.registr.*;
+import com.nofrfa.enderpower.tile.machines.destructor.DestructorTE;
 import com.nofrfa.enderpower.world.gener.GeneratorOres;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -21,6 +22,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
         GameRegistry.registerWorldGenerator(new GeneratorOres(), 0);
+        DestructorTE.Recipes.initRecipes();
         AllMachinesTE.buildDummies();
         CraftMachinesRegister.addMachineRecipe();
         CraftRegister.addCraftingRecipes();

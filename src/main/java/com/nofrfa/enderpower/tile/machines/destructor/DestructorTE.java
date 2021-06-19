@@ -4,7 +4,6 @@ import com.nofrfa.enderpower.misc.Configs;
 import com.nofrfa.enderpower.misc.registr.ItemsRegistry;
 import com.nofrfa.enderpower.tile.machines.destructor.gui.ContainerDestr;
 import com.nofrfa.enderpower.tile.machines.destructor.gui.GuiDestr;
-import ic2.api.item.IC2Items;
 import ic2.api.tile.IWrenchable;
 import ic2.core.ContainerBase;
 import ic2.core.IHasGui;
@@ -26,6 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,27 +39,13 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     private float progress;
     private int energyConsume;
     private int timer;
-
-    public static ItemStack[] inputItem = {
-            is(ItemsRegistry.DUST_spadiy),
-            is(ItemsRegistry.GENERATOR_sp_2, 4),
-            is(ItemsRegistry.GENERATOR_sp_1, 4),
-            IC2Items.getItem("ingot", "steel"),
-            is(ItemsRegistry.INGOT_spadiy, 2)
-    };
-
-    public static ItemStack[][] outputItem = {
-            {is(ItemsRegistry.INGOT_spadiy)},
-            {is(ItemsRegistry.GENERATOR_sp_3)},
-            {is(ItemsRegistry.GENERATOR_sp_2)},
-            {is(ItemsRegistry.DUST_steel)},
-            {is(ItemsRegistry.DUST_spadiy)}
-    };
+    List<Recipes> recipes = Recipes.getRecipes();
+    public static List<ItemStack> outputItems;
 
     public DestructorTE() {
         super(16000, 4);
         this.redstone = this.addComponent(new Redstone(this));
-        this.inputContainer = new InvSlotConsumableItemStack(this, "in", 1, inputItem);
+        this.inputContainer = new InvSlotConsumableItemStack(this, "in", 1, Recipes.getItemsForInput());
         this.outputContainer = new InvSlotOutput(this, "out", 4);
         this.progress = 0;
         this.MAX_PROGRESS = 600;
@@ -94,17 +80,17 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
         int recipeNumber = 0;
 
         if(!this.inputContainer.isEmpty()) {
-            for (int index = 0; index < inputItem.length; index++) {
-                if (this.inputContainer.get().isItemEqual(inputItem[index])) {
-                    recipeNumber = index;
-                    break;
-                }
+            for(int i = 0; i < recipes.size(); i++) {
+                if(recipes.get(i).matchesInput(this.inputContainer.get()))
+                    outputItems.add(i, recipes.get(i).getOutput()[i]);
+
+                recipeNumber = i;
             }
         }
 
         if(this.inputContainer.isEmpty()) this.progress = 0;
 
-        if(canWork(recipeNumber) && canOut(recipeNumber) && isActive) {
+        if(canWork(recipeNumber) && canOut() && isActive) {
             this.progress++;
             this.energy.useEnergy(energyConsume);
             this.setActive(true);
@@ -117,27 +103,28 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     }
 
     private void completed(int recipeNumber) {
-        this.inputContainer.consume(inputItem[recipeNumber].getCount());
+        this.inputContainer.consume(recipes.get(recipeNumber).input.getCount());
 
-        for(int index = 0; index < outputItem[recipeNumber].length; index++) {
-            this.outputContainer.add(outputItem[recipeNumber][index]);
+        for(ItemStack outputItem : outputItems) {
+            this.outputContainer.add(outputItem);
         }
+        outputItems.clear();
     }
 
     private boolean canWork(int recipeNumber) {
         return !this.inputContainer.isEmpty()
                 && this.energy.canUseEnergy(energyConsume)
-                && this.inputContainer.get().getCount() >= inputItem[recipeNumber].getCount();
+                && this.inputContainer.get().getCount() >= recipes.get(recipeNumber).input.getCount();
     }
 
     // TODO: 15.03.2021 rework check logic
-    private boolean canOut(int recipeNumber) {
+    private boolean canOut() {
         int checkID = 0;
-        for(int index = 0; index < outputItem[recipeNumber].length; index++) {
-            if(this.outputContainer.canAdd(outputItem[recipeNumber][index]))
+        for(ItemStack outputItem : outputItems) {
+            if(this.outputContainer.canAdd(outputItem))
                 checkID++;
         }
-        return checkID == outputItem[recipeNumber].length;
+        return checkID == outputItems.size();
     }
 
     @Override
@@ -198,5 +185,76 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
 
     private static ItemStack is(Block item, int amount){
         return new ItemStack(item, amount);
+    }
+
+    public static class Recipes {
+        private static final List<Recipes> recipes = new ArrayList<>();
+        public static List<Recipes> getRecipes() { // Получатель всех рецептов.
+            return recipes;
+        }
+        private final ItemStack input;
+        private final ItemStack[] op0;
+
+        public Recipes(ItemStack input, ItemStack...output1) {
+            this.input = input;
+            this.op0 = output1;
+        }
+
+        public static void addRecipes(ItemStack input, ItemStack...output1) {
+            Recipes recipe = new Recipes(input, output1);
+            if (recipes.contains(recipe))
+                return;
+            recipes.add(recipe);
+        }
+
+        private static void addRecipes(String input, ItemStack...output) {
+            if(!OreDictionary.doesOreNameExist(input)) throw new RuntimeException("invalid oreDictionary name: " + input);
+
+            for(ItemStack item :OreDictionary.getOres(input)) {
+                Recipes recipe = new Recipes(item, output);
+                if (recipes.contains(recipe))
+                    return;
+                recipes.add(recipe);
+            }
+        }
+
+        public static Recipes getRecipe(ItemStack is) {
+            if (is == null || is.isEmpty())
+                return null;
+            for (Recipes recipe : recipes)
+                if (recipe.matchesInput(is))
+                    return recipe;
+            return null;
+        }
+
+        public static ItemStack[] getItemsForInput() {
+            ItemStack[] listItems = new ItemStack[recipes.size()];
+            for(int i = 0; i < recipes.size(); i++) {
+                listItems[i] = recipes.get(i).getInput();
+            }
+
+            return listItems;
+        }
+
+        public ItemStack getInput() { // Получатель входного предмета рецепта.
+            return input;
+        }
+
+        public ItemStack[] getOutput() { // Получатель выходного предмета рецепта.
+            return op0;
+        }
+
+        public boolean matchesInput(ItemStack is) {
+            return is.getItem() == input.getItem();
+        }
+
+        public static void initRecipes() {
+            addRecipes(is(ItemsRegistry.DUST_spadiy), is(ItemsRegistry.INGOT_spadiy));
+            addRecipes(is(ItemsRegistry.GENERATOR_sp_2, 4), is(ItemsRegistry.GENERATOR_sp_3));
+            addRecipes(is(ItemsRegistry.GENERATOR_sp_1, 4), is(ItemsRegistry.GENERATOR_sp_2));
+            addRecipes(is(ItemsRegistry.INGOT_spadiy, 2), is(ItemsRegistry.DUST_spadiy));
+            addRecipes("ingotSteel", is(ItemsRegistry.DUST_steel));
+            //addRecipes(GGGGGGGGGGG, HHHHHHHHHHH);
+        }
     }
 }
