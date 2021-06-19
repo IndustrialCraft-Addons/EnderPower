@@ -132,14 +132,12 @@ public class EventsHandler {
             EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
 
             assert false;
-            if(!player.getHeldItem(player.getActiveHand()).isItemEqual(new ItemStack(ItemsRegistry.TOOL_spadiy_sword))) return;
+            if(!player.getHeldItem(player.getActiveHand()).isItemEqualIgnoreDurability(new ItemStack(ItemsRegistry.TOOL_spadiy_sword))) return;
 
             SplittableRandom random = new SplittableRandom();
             if(random.nextInt(1, 101) <= 40) return;
-        
 
             EntityLivingBase entity = event.getEntityLiving();
-            World world = entity.getEntityWorld();
             BlockPos pos;
             ItemStack stack;
             
@@ -153,18 +151,16 @@ public class EventsHandler {
             }
             else if(entity instanceof EntityCreeper) {
                 pos = getPosOf(entity);
-                stack = new ItemStack(Items.SKULL, 1, 4);
+                stack = new ItemStack(Items.SKULL, 4, 2);
             }
             else if(entity instanceof EntityWitherSkeleton) {
                 pos = getPosOf(entity);
                 stack = new ItemStack(Items.SKULL, 1, 1);
             }
-            else {
-                return;
-            }
+            else return;
 
-            EntityItem entityToSpawn = new EntityItem(world, pos.getX(), pos.getY(), pos.getY(), stack);
-            entityToSpawn.setGlowing(true);
+            World world = event.getEntity().getEntityWorld();
+            EntityItem entityToSpawn = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
             world.spawnEntity(entityToSpawn);
         }
     }
@@ -174,8 +170,6 @@ public class EventsHandler {
     }
 
     private int getRandomNumber(int max_1) {
-        if(max_1 >= 3) {
-            return new Random().nextInt(max_1);
-        } else return max_1;
+        return max_1 >= 3 ? new Random().nextInt(max_1) : max_1;
     }
 }
