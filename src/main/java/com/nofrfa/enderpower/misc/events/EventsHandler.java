@@ -151,7 +151,7 @@ public class EventsHandler {
             }
             else if(entity instanceof EntityCreeper) {
                 pos = getPosOf(entity);
-                stack = new ItemStack(Items.SKULL, 4, 2);
+                stack = new ItemStack(Items.SKULL, 1, 4);
             }
             else if(entity instanceof EntityWitherSkeleton) {
                 pos = getPosOf(entity);
