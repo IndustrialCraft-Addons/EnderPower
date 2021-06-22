@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 public class DestructorWrapper implements IRecipeWrapper {
-    private ItemStack input;
+    private List<ItemStack> input;
     private List<ItemStack> output0;
 
     public DestructorWrapper(DestructorRecipeInit recipe) {
@@ -21,7 +21,7 @@ public class DestructorWrapper implements IRecipeWrapper {
         ingredients.setOutput(ItemStack.class, output0);
     }
 
-    public ItemStack getInput() {
+    public List<ItemStack> getInput() {
         return input;
     }
 

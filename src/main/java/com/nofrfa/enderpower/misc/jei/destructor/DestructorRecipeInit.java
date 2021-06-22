@@ -1,8 +1,6 @@
 package com.nofrfa.enderpower.misc.jei.destructor;
 
 import com.nofrfa.enderpower.tile.machines.destructor.DestructorTE;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
@@ -16,15 +14,15 @@ public class DestructorRecipeInit {
         return recipes;
     }
 
-    private final ItemStack input;
+    private final List<ItemStack> input;
     private final List<ItemStack> op0;
 
-    public DestructorRecipeInit(ItemStack input, List<ItemStack> output1) {
+    public DestructorRecipeInit(List<ItemStack> input, List<ItemStack> output1) {
         this.input = input;
         this.op0 = output1;
     }
 
-    public ItemStack getInput() { // Получатель входного предмета рецепта.
+    public List<ItemStack> getInput() { // Получатель входного предмета рецепта.
         return input;
     }
 
@@ -32,12 +30,11 @@ public class DestructorRecipeInit {
         return op0;
     }
 
-    public static DestructorRecipeInit addRecipe(ItemStack input, List<ItemStack> output1) {
+    public static void addRecipe(List<ItemStack> input, List<ItemStack> output1) {
         DestructorRecipeInit recipe = new DestructorRecipeInit(input, output1);
         if (recipes.contains(recipe))
-            return null;
+            return;
         recipes.add(recipe);
-        return recipe;
     }
 
     public static DestructorRecipeInit getRecipe(ItemStack is) {
@@ -50,23 +47,18 @@ public class DestructorRecipeInit {
     }
 
     public boolean matchesInput(ItemStack is) {
-        return is.getItem() == input.getItem();
+        for(ItemStack item : input) {
+            if(is.getItem() == item.getItem())
+                return true;
+        }
+
+        return false;
     }
 
     public static void initRecipes() {
         for(int i = 0; i < DestructorTE.Recipes.getRecipes().size(); i++) {
             List<ItemStack> list = new ArrayList<>(Arrays.asList(DestructorTE.Recipes.getRecipes().get(i).getOutput()));
-            addRecipe(DestructorTE.Recipes.getRecipes().get(i).getInput(), list);
+            addRecipe(Arrays.asList(DestructorTE.Recipes.getRecipes().get(i).getInput()), list);
         }
     }
-
-    private static ItemStack is(Item item, int amount) {
-        return new ItemStack(item, amount);
-    }
-
-    private static ItemStack is(Item item) {
-        return new ItemStack(item, 1);
-    }
-
-    private static ItemStack is(Block block, int amount) { return new ItemStack(block, amount); }
 }
