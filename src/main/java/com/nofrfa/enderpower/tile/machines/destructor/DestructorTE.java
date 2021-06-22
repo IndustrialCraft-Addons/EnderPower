@@ -12,7 +12,6 @@ import ic2.core.block.invslot.InvSlotConsumableItemStack;
 import ic2.core.block.invslot.InvSlotOutput;
 import ic2.core.block.machine.tileentity.TileEntityElectricMachine;
 import ic2.core.profile.NotClassic;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,6 +27,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @NotClassic
@@ -39,8 +39,8 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     private float progress;
     private int energyConsume;
     private int timer;
-    List<Recipes> recipes = Recipes.getRecipes();
-    public static List<ItemStack> outputItems;
+    public List<Recipes> recipes = Recipes.getRecipes();
+    public List<ItemStack> outputItems = new ArrayList<>();
 
     public DestructorTE() {
         super(16000, 4);
@@ -71,30 +71,33 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
         if(this.timer++ % 100 == 0) {
             if(this.energyConsume != Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume)
                 this.energyConsume = Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume;
-        }
-
-        if(this.timer >= 100)
             this.timer = 0;
+        }
 
         boolean isActive = this.redstone.getRedstoneInput() == 0;
         int recipeNumber = 0;
+        this.outputItems.clear();
 
         if(!this.inputContainer.isEmpty()) {
-            for(int i = 0; i < recipes.size(); i++) {
-                if(recipes.get(i).matchesInput(this.inputContainer.get()))
-                    outputItems.add(i, recipes.get(i).getOutput()[i]);
+            for(int i = 0; i < this.recipes.size(); i++) {
+                if(this.recipes.get(i).matchesInput(this.inputContainer.get())) {
+                    for(int i1 = 0; i1 < this.recipes.get(i).getOutput().length; i1++) {
+                        this.outputItems.add(this.recipes.get(i).getOutput()[i1]);
+                    }
+                }
 
                 recipeNumber = i;
             }
         }
-
-        if(this.inputContainer.isEmpty()) this.progress = 0;
 
         if(canWork(recipeNumber) && canOut() && isActive) {
             this.progress++;
             this.energy.useEnergy(energyConsume);
             this.setActive(true);
         } else this.setActive(false);
+
+
+        if(this.inputContainer.isEmpty()) this.progress = 0;
 
         if(this.progress == this.MAX_PROGRESS) {
             this.progress = 0;
@@ -103,21 +106,24 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     }
 
     private void completed(int recipeNumber) {
-        this.inputContainer.consume(recipes.get(recipeNumber).input.getCount());
+        this.inputContainer.consume(this.recipes.get(recipeNumber).input[0].getCount());
 
-        for(ItemStack outputItem : outputItems) {
+        for(ItemStack outputItem : this.outputItems) {
             this.outputContainer.add(outputItem);
         }
-        outputItems.clear();
     }
 
     private boolean canWork(int recipeNumber) {
+        boolean ret = false;
+        for(ItemStack item : this.recipes.get(recipeNumber).getInput())
+            if(this.inputContainer.get().getCount() >= item.getCount())
+                ret = true;
+
         return !this.inputContainer.isEmpty()
                 && this.energy.canUseEnergy(energyConsume)
-                && this.inputContainer.get().getCount() >= recipes.get(recipeNumber).input.getCount();
+                && ret;
     }
 
-    // TODO: 15.03.2021 rework check logic
     private boolean canOut() {
         int checkID = 0;
         for(ItemStack outputItem : outputItems) {
@@ -183,25 +189,24 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
         return new ItemStack(item, 1);
     }
 
-    private static ItemStack is(Block item, int amount){
-        return new ItemStack(item, amount);
-    }
-
     public static class Recipes {
         private static final List<Recipes> recipes = new ArrayList<>();
         public static List<Recipes> getRecipes() { // Получатель всех рецептов.
             return recipes;
         }
-        private final ItemStack input;
+        private final ItemStack[] input;
         private final ItemStack[] op0;
 
-        public Recipes(ItemStack input, ItemStack...output1) {
+        public Recipes(ItemStack[] input, ItemStack...output1) {
             this.input = input;
             this.op0 = output1;
         }
 
         public static void addRecipes(ItemStack input, ItemStack...output1) {
-            Recipes recipe = new Recipes(input, output1);
+            ItemStack[] input0 = new ItemStack[1];
+            input0[0] = input;
+
+            Recipes recipe = new Recipes(input0, output1);
             if (recipes.contains(recipe))
                 return;
             recipes.add(recipe);
@@ -210,33 +215,25 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
         private static void addRecipes(String input, ItemStack...output) {
             if(!OreDictionary.doesOreNameExist(input)) throw new RuntimeException("invalid oreDictionary name: " + input);
 
-            for(ItemStack item :OreDictionary.getOres(input)) {
-                Recipes recipe = new Recipes(item, output);
-                if (recipes.contains(recipe))
-                    return;
-                recipes.add(recipe);
-            }
-        }
-
-        public static Recipes getRecipe(ItemStack is) {
-            if (is == null || is.isEmpty())
-                return null;
-            for (Recipes recipe : recipes)
-                if (recipe.matchesInput(is))
-                    return recipe;
-            return null;
+            ItemStack[] itemStacks = OreDictionary.getOres(input).toArray(new ItemStack[0]);
+            Recipes recipe = new Recipes(itemStacks, output);
+            if (recipes.contains(recipe))
+                return;
+            recipes.add(recipe);
         }
 
         public static ItemStack[] getItemsForInput() {
-            ItemStack[] listItems = new ItemStack[recipes.size()];
-            for(int i = 0; i < recipes.size(); i++) {
-                listItems[i] = recipes.get(i).getInput();
+            List<ItemStack> listItems = new ArrayList<>();
+
+            for(Recipes recipe : recipes) {
+                ItemStack[] itemStacks = recipe.getInput();
+                listItems.addAll(Arrays.asList(itemStacks));
             }
 
-            return listItems;
+            return listItems.toArray(new ItemStack[0]);
         }
 
-        public ItemStack getInput() { // Получатель входного предмета рецепта.
+        public ItemStack[] getInput() { // Получатель входного предмета рецепта.
             return input;
         }
 
@@ -245,15 +242,20 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
         }
 
         public boolean matchesInput(ItemStack is) {
-            return is.getItem() == input.getItem();
+            for(ItemStack item : input) {
+                if(is.getItem() == item.getItem())
+                    return true;
+            }
+
+            return false;
         }
 
         public static void initRecipes() {
             addRecipes(is(ItemsRegistry.DUST_spadiy), is(ItemsRegistry.INGOT_spadiy));
-            addRecipes(is(ItemsRegistry.GENERATOR_sp_2, 4), is(ItemsRegistry.GENERATOR_sp_3));
-            addRecipes(is(ItemsRegistry.GENERATOR_sp_1, 4), is(ItemsRegistry.GENERATOR_sp_2));
             addRecipes(is(ItemsRegistry.INGOT_spadiy, 2), is(ItemsRegistry.DUST_spadiy));
             addRecipes("ingotSteel", is(ItemsRegistry.DUST_steel));
+            addRecipes(is(ItemsRegistry.GENERATOR_sp_1, 4), is(ItemsRegistry.GENERATOR_sp_2));
+            addRecipes(is(ItemsRegistry.GENERATOR_sp_2, 4), is(ItemsRegistry.GENERATOR_sp_3));
             //addRecipes(GGGGGGGGGGG, HHHHHHHHHHH);
         }
     }
