@@ -94,10 +94,8 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
 
         if(this.timer++ % 100 == 0) {
             haveUpgrades();
-        }
-
-        if(this.timer >= 100)
             this.timer = 0;
+        }
 
         int energyConsume = Configs.GeneralSettings.Mechanisms.GasExtractor.defaultEnergyConsume + energy_increase;
 
