@@ -74,28 +74,24 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
             this.timer = 0;
         }
 
-        boolean isActive = this.redstone.getRedstoneInput() == 0;
         int recipeNumber = 0;
         this.outputItems.clear();
 
         if(!this.inputContainer.isEmpty()) {
             for(int i = 0; i < this.recipes.size(); i++) {
                 if(this.recipes.get(i).matchesInput(this.inputContainer.get())) {
-                    for(int i1 = 0; i1 < this.recipes.get(i).getOutput().length; i1++) {
-                        this.outputItems.add(this.recipes.get(i).getOutput()[i1]);
-                    }
+                    this.outputItems.addAll(Arrays.asList(this.recipes.get(i).getOutput()));
+                    recipeNumber = i;
+                    break;
                 }
-
-                recipeNumber = i;
             }
         }
 
-        if(canWork(recipeNumber) && canOut() && isActive) {
+        if(canWork(recipeNumber)) {
             this.progress++;
             this.energy.useEnergy(energyConsume);
             this.setActive(true);
         } else this.setActive(false);
-
 
         if(this.inputContainer.isEmpty()) this.progress = 0;
 
@@ -106,7 +102,7 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     }
 
     private void completed(int recipeNumber) {
-        this.inputContainer.consume(this.recipes.get(recipeNumber).input[0].getCount());
+        this.inputContainer.consume(this.recipes.get(recipeNumber).getInput()[0].getCount());
 
         for(ItemStack outputItem : this.outputItems) {
             this.outputContainer.add(outputItem);
@@ -114,23 +110,17 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     }
 
     private boolean canWork(int recipeNumber) {
-        boolean ret = false;
-        for(ItemStack item : this.recipes.get(recipeNumber).getInput())
-            if(this.inputContainer.get().getCount() >= item.getCount())
-                ret = true;
-
-        return !this.inputContainer.isEmpty()
-                && this.energy.canUseEnergy(energyConsume)
-                && ret;
-    }
-
-    private boolean canOut() {
         int checkID = 0;
         for(ItemStack outputItem : outputItems) {
             if(this.outputContainer.canAdd(outputItem))
                 checkID++;
         }
-        return checkID == outputItems.size();
+
+        return !this.inputContainer.isEmpty()
+                && this.energy.canUseEnergy(energyConsume)
+                && this.inputContainer.get().getCount() >= this.recipes.get(recipeNumber).getInput()[0].getCount()
+                && checkID == outputItems.size()
+                && this.redstone.getRedstoneInput() == 0;
     }
 
     @Override
@@ -216,6 +206,24 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
             if(!OreDictionary.doesOreNameExist(input)) throw new RuntimeException("invalid oreDictionary name: " + input);
 
             ItemStack[] itemStacks = OreDictionary.getOres(input).toArray(new ItemStack[0]);
+
+            for(ItemStack is : itemStacks)
+                is.setCount(1);
+
+            Recipes recipe = new Recipes(itemStacks, output);
+            if (recipes.contains(recipe))
+                return;
+            recipes.add(recipe);
+        }
+
+        private static void addRecipes(String input, int count, ItemStack...output) {
+            if(!OreDictionary.doesOreNameExist(input)) throw new RuntimeException("invalid oreDictionary name: " + input);
+
+            ItemStack[] itemStacks = OreDictionary.getOres(input).toArray(new ItemStack[0]);
+
+            for(ItemStack is : itemStacks)
+                is.setCount(count);
+
             Recipes recipe = new Recipes(itemStacks, output);
             if (recipes.contains(recipe))
                 return;
