@@ -10,7 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 public class CraftMachinesRegister {
     private static final ItemStack
             carbon_plate = IC2Items.getItem("crafting", "carbon_plate"),
-            steel_powder = new ItemStack(ItemsRegistry.DUST_steel),
             spadiy = new ItemStack(ItemsRegistry.INGOT_spadiy),
             iron_dust = IC2Items.getItem("dust", "iron"),
             spadiy_plate = new ItemStack(ItemsRegistry.PLATE_spadiy),
@@ -21,8 +20,7 @@ public class CraftMachinesRegister {
             neifrit_casing = new ItemStack(ItemsRegistry.CASING_neifrit, 2),
             neifritpowder = new ItemStack(ItemsRegistry.DUST_neifrit),
             sp_0 = new ItemStack(ItemsRegistry.GENERATOR_sp_0),
-            sp_1 = new ItemStack(ItemsRegistry.GENERATOR_sp_1),
-            sp_2 = new ItemStack(ItemsRegistry.GENERATOR_sp_2);
+            sp_1 = new ItemStack(ItemsRegistry.GENERATOR_sp_1);
 
     public static void addMachineRecipe() {
         IRecipeInputFactory input = Recipes.inputFactory;
