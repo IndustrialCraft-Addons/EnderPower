@@ -126,47 +126,17 @@ public class CraftRegister {
                 "BDB",
                 'A', adv_casing_machine, 'B', compressed_carbon_plate, 'C', ult_circuit, 'D', neifrit_plate);
 
-        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_sword),
-                " A ",
-                " A ",
-                " B ",
-                'A', spadiy, 'B', "stickWood");
-
-        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_sword),
-                " A ",
-                " A ",
-                " B ",
-                'A', spadiy, 'B', "stickWood");
-
-        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_pickaxe),
-                "AAA",
-                " B ",
-                " B ",
-                'A', spadiy, 'B', "stickWood");
-
-        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_axe),
-                " AA",
-                " BA",
-                " B ",
-                'A', spadiy, 'B', "stickWood");
-
-        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_axe),
-                "AA ",
-                "AB ",
-                " B ",
-                'A', spadiy, 'B', "stickWood");
-
-        addShapedRecipes(is(ItemsRegistry.TOOL_spadiy_spade),
-                " A ",
-                " B ",
-                " B ",
-                'A', spadiy, 'B', "stickWood");
-
         addShapedRecipes(is(ItemsRegistry.ITEM_neifrit_coil),
                 "ABA",
                 "ABA",
                 "ABA",
                 'A', neifrit, 'B', spadiy);
+
+        addShapedRecipes(is(ItemsRegistry.ITEM_deterrent),
+                "BAB",
+                "ACA",
+                "BAB",
+                'A', is(ItemsRegistry.PLATE_neifrit_compres), 'B', compressed_carbon_plate, 'C', inhibition_core);
 
         //rofl
         if(Configs.GeneralSettings.root_access)
