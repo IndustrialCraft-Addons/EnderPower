@@ -13,22 +13,18 @@ import javax.annotation.Nonnull;
 
 public class TabsList {
     public static final CreativeTabs EXtabs = new CreativeTabs("enderpower") {
+        @Override
+        public ItemStack getTabIconItem() {
+            return new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit);
+        }
 
         public final boolean items = true;
         public final boolean blocks = true;
         public final boolean tools = false;
 
-
-        @Override
-        public ItemStack getTabIconItem() {
-            assert false;
-            return new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit);
-        }
-
         @Override
         @SideOnly(Side.CLIENT)
-        public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> itemStacks)
-        {
+        public void displayAllRelevantItems(@Nonnull NonNullList<ItemStack> itemStacks) {
             if (blocks) for (Item item : Item.REGISTRY) if (item instanceof ItemBlock)      item.getSubItems(this, itemStacks);
             if (tools)  for (Item item : Item.REGISTRY) if (item.isDamageable())            item.getSubItems(this, itemStacks);
             if (items)  for (Item item : Item.REGISTRY) if (!(item instanceof ItemBlock))   item.getSubItems(this, itemStacks);
