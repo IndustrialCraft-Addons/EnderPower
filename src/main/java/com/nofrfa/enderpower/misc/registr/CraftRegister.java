@@ -1,7 +1,7 @@
 package com.nofrfa.enderpower.misc.registr;
 
 import com.nofrfa.enderpower.EnderPower;
-import com.nofrfa.enderpower.misc.Configs;
+import com.nofrfa.enderpower.misc.EPConfig;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.Recipes;
 import net.minecraft.block.Block;
@@ -19,7 +19,6 @@ public class CraftRegister {
             iodine = IC2Items.getItem("misc_resource", "iodine"),
             compressed_carbon_plate = new ItemStack(ItemsRegistry.ITEM_Compressed_Carbon_Plate),
             adv_casing_machine = IC2Items.getItem("resource", "advanced_machine"),
-            power_convertion = new ItemStack(ItemsRegistry.MODULE_power_convertion),
             neifrit_coil = new ItemStack(ItemsRegistry.ITEM_neifrit_coil),
             neifrit = new ItemStack(ItemsRegistry.INGOT_nefrit),
             spadiy = new ItemStack(ItemsRegistry.INGOT_spadiy),
@@ -138,8 +137,22 @@ public class CraftRegister {
                 "BAB",
                 'A', is(ItemsRegistry.PLATE_neifrit_compres), 'B', compressed_carbon_plate, 'C', inhibition_core);
 
+        addShapedRecipes(is(ItemsRegistry.ITEM_empshel),
+                "CAC",
+                "ABA",
+                "CCC",
+                'A', neifrit_plate, 'B', IC2Items.getItem("glass", "reinforced"), 'C', spadyplate);
+
+        addShapelessRecipe(is(ItemsRegistry.ITEM_hetrod), is(ItemsRegistry.ITEM_empshel), neifrit_coil, neifrit_coil, neifrit_coil, neifrit_coil);
+
+        addShapedRecipes(is(ItemsRegistry.ITEM_The_inhibition),
+                "ABA",
+                "BCB",
+                "ABA",
+                'A', neifrit_plate, 'B', spadyplate, 'C', ult_circuit);
+
         //rofl
-        if(Configs.GeneralSettings.root_access)
+        if(EPConfig.GeneralSettings.root_access)
             addShapelessRecipe((new ItemStack(ItemsRegistry.UPGRADE_creative_energy, 4)), is(Blocks.BEDROCK),is(Blocks.BEDROCK),is(Blocks.BEDROCK),is(Blocks.BEDROCK),is(Blocks.BEDROCK),is(Blocks.BEDROCK));
     }
 
