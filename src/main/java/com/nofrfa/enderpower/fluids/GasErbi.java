@@ -7,5 +7,4 @@ public class GasErbi extends Fluid {
     public GasErbi(String fluidName, ResourceLocation still, ResourceLocation flowing) {
         super(fluidName, still, flowing);
     }
-
 }
