@@ -53,7 +53,7 @@ public class EventsHandler {
     }
 
     @SubscribeEvent
-    public void onTarget(LivingSetAttackTargetEvent event) {
+    public void amuletDefender(LivingSetAttackTargetEvent event) {
         if(event.getEntityLiving() instanceof EntityEnderman){
             EntityLiving entity = (EntityLiving) event.getEntityLiving();
             if(event.getTarget() instanceof EntityPlayer) {
@@ -70,7 +70,7 @@ public class EventsHandler {
     }
 
     @SubscribeEvent
-    public void shulkerdetecter(LivingAttackEvent event) {
+    public void shulkerDetect(LivingAttackEvent event) {
        Entity entity = event.getEntity();
        if(entity instanceof EntityPlayer) {
            if(event.getSource().getTrueSource() instanceof EntityShulker) {
