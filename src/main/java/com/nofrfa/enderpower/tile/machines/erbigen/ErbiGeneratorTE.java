@@ -1,6 +1,6 @@
 package com.nofrfa.enderpower.tile.machines.erbigen;
 
-import com.nofrfa.enderpower.misc.Configs;
+import com.nofrfa.enderpower.misc.EPConfig;
 import com.nofrfa.enderpower.misc.ModUtils;
 import com.nofrfa.enderpower.misc.registr.FluidsRegister;
 import com.nofrfa.enderpower.misc.registr.ItemsRegistry;
@@ -86,11 +86,11 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
     public boolean boom;
 
     public ErbiGeneratorTE() {
-        this.tier = Configs.getErbiGeneratorTier();
+        this.tier = EPConfig.getErbiGeneratorTier();
         this.turn = false;
-        this.maxCapacity = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity;
+        this.maxCapacity = EPConfig.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity;
         this.stored = 0;
-        this.production = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction;
+        this.production = EPConfig.GeneralSettings.Mechanisms.Erbi_Generator.defaultProduction;
         this.guiProd = 0;
         this.output = 9_223_923_928_372_036_854_807D;
         this.maxTemperature = 6000;
@@ -156,7 +156,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         tooltip.add(Localization.translate("ic2.item.tooltip.PowerTier", this.tier));
         tooltip.add(String.format("%s %s EU",
                 Localization.translate("ic2.item.tooltip.Capacity"),
-                ModUtils.getString(this.maxCapacity)
+                ModUtils.getStringFromNumber(this.maxCapacity)
         ));
         tooltip.add(String.format("%s %s EU/t",
                 Localization.translate("ic2.item.tooltip.Output"),
@@ -202,8 +202,11 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
             goBoom();
 
         double energyProdBonus = 0;
+        int energyProdBonusCount = 0;
         double capacityBonus = 0;
+        int capacityBonusCount = 0;
         double giftEnergyBonus = 1;
+        int giftEnergyBonusCount = 0;
         this.creativeEnergy = false;
 
         for (int i = 0; i < this.upgrades.size(); i++) {
@@ -211,13 +214,16 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                 if (this.upgrades.get(i).isItemEqual(upgradesList[i1])) { // 0 - Energy | 1 - Capacity | 2 - GiftEnergy | 3 - CreativeEnergy
                     switch (i1) {
                         case 0:
-                            energyProdBonus += Configs.GeneralSettings.Upgrades.Energy.energy_upgrade_boost;
+                            energyProdBonus += EPConfig.GeneralSettings.Upgrades.Energy.energy_upgrade_boost;
+                            energyProdBonusCount++;
                             break;
                         case 1:
-                            capacityBonus += Configs.GeneralSettings.Upgrades.Capacity.capacity_upgrade_boost;
+                            capacityBonus += EPConfig.GeneralSettings.Upgrades.Capacity.capacity_upgrade_boost;
+                            capacityBonusCount++;
                             break;
                         case 2:
-                            giftEnergyBonus *= Configs.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_boost;
+                            giftEnergyBonus *= EPConfig.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_boost;
+                            giftEnergyBonusCount++;
                             break;
                         case 3:
                             this.creativeEnergy = true;
@@ -228,8 +234,8 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         }
 
         if (this.timer++ % 100 == 0) {
-            if (this.maxCapacity != Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + capacityBonus)
-                this.maxCapacity = Configs.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + capacityBonus;
+            if (this.maxCapacity != EPConfig.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + capacityBonus)
+                this.maxCapacity = EPConfig.GeneralSettings.Mechanisms.Erbi_Generator.defaultEnergyCapacity + capacityBonus;
 
             if (this.stored > this.maxCapacity)
                 this.stored = this.maxCapacity;
@@ -265,7 +271,10 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
                     }
                 } else {
                     if (this.timer % 10 == 0) {
-                        this.fluidTank.drain(1, true);
+                        int addConsume =
+                                giftEnergyBonusCount * EPConfig.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_addConsumeGas;
+
+                        this.fluidTank.drain(1 + addConsume, true);
                         this.gasUsed++;
                         this.temperature += Math.min(this.maxTemperature - this.temperature, getRandom(3.0, 9.0));
 
@@ -308,8 +317,8 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
         if (this.workTime == 4100) {
             double tmp = this.production + energyProdBonus + this.giftEnergy;
             this.guiGiftEnergy = this.giftEnergy += getRandom(
-                    tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_1,
-                    tmp / Configs.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_2
+                    tmp / EPConfig.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_1,
+                    tmp / EPConfig.GeneralSettings.Mechanisms.Erbi_Generator.gift_division_2
             );
             this.workTime = 0;
         }
@@ -415,7 +424,7 @@ public class ErbiGeneratorTE extends TileEntityInventory implements INetworkData
     }
 
     public String getEnergyCapacityTooltip() {
-        return String.format("%s EU / %s EU", ModUtils.getString(this.stored), ModUtils.getString(this.maxCapacity));
+        return String.format("%s EU / %s EU", ModUtils.getStringFromNumber(this.stored), ModUtils.getStringFromNumber(this.maxCapacity));
     }
 
     public boolean getMode() {
