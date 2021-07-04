@@ -1,6 +1,6 @@
 package com.nofrfa.enderpower.misc.registr;
 
-import com.nofrfa.enderpower.misc.Configs;
+import com.nofrfa.enderpower.misc.EPConfig;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -31,7 +31,7 @@ public class EnderPowerCommand extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return Configs.GeneralSettings.root_access ? USAGE_ROOT : USAGE;
+        return EPConfig.GeneralSettings.root_access ? USAGE_ROOT : USAGE;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class EnderPowerCommand extends CommandBase {
 
     public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
         if(args.length == 1) {
-            if(Configs.GeneralSettings.root_access)
+            if(EPConfig.GeneralSettings.root_access)
                 return getListOfStringsMatchingLastWord(args, "detter_shulker", "detter_enderfish");
             else return getListOfStringsMatchingLastWord(args, "detter_shulker");
         }
@@ -88,7 +88,7 @@ public class EnderPowerCommand extends CommandBase {
                 }
             }
 
-            if(Configs.GeneralSettings.root_access) {
+            if(EPConfig.GeneralSettings.root_access) {
                 if (args[0].equals("detter_enderfish")) {
                     if(mainHandItem.getUnlocalizedName().equals("item.deterrent_filled")) {
                         if(!mainHandItem.hasTagCompound()) {
