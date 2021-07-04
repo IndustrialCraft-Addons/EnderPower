@@ -141,6 +141,6 @@ public enum AllMachinesTE implements ITeBlock {
                     }
                 }
             }
-        } else { throw new IllegalAccessError("accessErrorLegacy ::::"); }
+        } else { throw new IllegalAccessError("accessErrorLegacy"); }
     }
 }
