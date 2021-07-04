@@ -1,13 +1,10 @@
 package com.nofrfa.enderpower.misc;
 
-import ic2.core.IC2;
-import ic2.core.util.StackUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCommandBlock;
 import net.minecraft.block.BlockStructure;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -25,7 +22,27 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.world.BlockEvent;
 
 public class ModUtils {
-    public static String getString(double number) {
+
+    public static final Item.ToolMaterial ToolMaterial_univ =
+            EnumHelper.addToolMaterial(
+                    "enderpower:tool", //name
+                    4, //HarvestLevel
+                    5712, //MaxUses
+                    40.0F, //Efficiency
+                    6.0F, //Damage
+                    30 //Enchantability
+            );
+    public static final Item.ToolMaterial ToolMaterial_sword =
+            EnumHelper.addToolMaterial(
+                    "enderpower:sword", //name
+                    4, //HarvestLevel
+                    2856, //MaxUses
+                    1.0F, //Efficiency
+                    13.0F, //Damage
+                    30 //Enchantability
+            );
+
+    public static String getStringFromNumber(double number) {
         String returnString = "0";
         if (number <= 1000) {
             returnString = String.format("%.0f", number);
@@ -57,52 +74,22 @@ public class ModUtils {
         return returnString;
     }
 
-    public static final Item.ToolMaterial ToolMaterial_univ =
-            EnumHelper.addToolMaterial(
-                    "enderpower:tool", //name
-                    4, //HarvestLevel
-                    5712, //MaxUses
-                    40.0F, //Efficiency
-                    6.0F, //Damage
-                    30 //Enchantability
-            );
-    public static final Item.ToolMaterial ToolMaterial_sword =
-            EnumHelper.addToolMaterial(
-                    "enderpower:sword", //name
-                    4, //HarvestLevel
-                    2856, //MaxUses
-                    1.0F, //Efficiency
-                    13.0F, //Damage
-                    30 //Enchantability
-            );
-
-    /**
-     * use {@link #helperChangeMode(EntityPlayer, EnumHand, String, int)}
-     */
-    @Deprecated
-    public static void enchanterHelper(World worldIn, EntityPlayer playerIn, EnumHand handIn, Enchantment ench1) {
-        ItemStack stack = StackUtil.get(playerIn, handIn);
-
-        if(IC2.keyboard.isSneakKeyDown(playerIn)) {
-            if(!worldIn.isRemote) {
-                if(!stack.isItemEnchanted()) {
-                    stack.addEnchantment(ench1, 5);
-                }
-                else {
-                    assert stack.getTagCompound() != null;
-                    stack.getTagCompound().removeTag("ench");
-                }
-            }
-            new ActionResult<>(EnumActionResult.SUCCESS, stack);
+    public static boolean getEqualsItems(ItemStack root, Item...items) {
+        boolean ret = false;
+        for(Item item1 : items) {
+            if(root.isItemEqualIgnoreDurability(is(item1)))
+                ret = true;
         }
+
+        return ret;
     }
 
-    public static boolean helperHasMode(ItemStack stack1, String nbtKey) {
+    public static boolean hasMode(ItemStack stack1, String nbtKey) {
         assert false;
         return stack1.hasTagCompound() && stack1.getTagCompound().hasKey(nbtKey) && stack1.getTagCompound().getInteger(nbtKey) != 0;
     }
 
-    public static void helperChangeMode(EntityPlayer player, EnumHand hand, String nbtKey, int maxModes) {
+    public static void changeMode(EntityPlayer player, EnumHand hand, String nbtKey, int maxModes) {
         ItemStack item = player.getHeldItem(hand);
         assert false;
         if(item.hasTagCompound()) {
@@ -119,7 +106,7 @@ public class ModUtils {
         new ActionResult<>(EnumActionResult.SUCCESS, item);
     }
 
-    public static void helperBlockDestroyer(ItemStack stack, World world, BlockPos pos, EntityLivingBase entityLiving, String nameHarvestTool, int plusDigSize, String nbtKey) {
+    public static void blockDestroyer(ItemStack stack, World world, BlockPos pos, EntityLivingBase entityLiving, String nameHarvestTool, int plusDigSize, String nbtKey) {
         if(!(entityLiving instanceof EntityPlayer) || world.isRemote)
             return;
 
@@ -188,4 +175,7 @@ public class ModUtils {
         }
     }
 
+    public static ItemStack is(Item item0) {
+        return new ItemStack(item0);
+    }
 }
