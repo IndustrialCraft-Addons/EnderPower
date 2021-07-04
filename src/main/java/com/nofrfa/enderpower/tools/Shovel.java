@@ -31,7 +31,7 @@ public class Shovel extends ItemSpade {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(ModUtils.helperHasMode(stack, "digSize")) {
+        if(ModUtils.hasMode(stack, "digSize")) {
             if(GuiScreen.isShiftKeyDown()){
                 tooltip.add("Dig Size: 3x3");
             } else {
@@ -45,7 +45,7 @@ public class Shovel extends ItemSpade {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         if(!world.isRemote) {
             if(IC2.keyboard.isSneakKeyDown(player)) {
-                ModUtils.helperChangeMode(player, hand, "digSize", 2);
+                ModUtils.changeMode(player, hand, "digSize", 2);
             }
         }
 
@@ -60,13 +60,13 @@ public class Shovel extends ItemSpade {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
-        return ModUtils.helperHasMode(stack, "digSize");
+        return ModUtils.hasMode(stack, "digSize");
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        if(ModUtils.helperHasMode(stack, "digSize"))
-            ModUtils.helperBlockDestroyer(stack, world, pos, entityLiving, "shovel", 1, "digSize");
+        if(ModUtils.hasMode(stack, "digSize"))
+            ModUtils.blockDestroyer(stack, world, pos, entityLiving, "shovel", 1, "digSize");
         return super.onBlockDestroyed(stack, world, state, pos, entityLiving);
     }
 }

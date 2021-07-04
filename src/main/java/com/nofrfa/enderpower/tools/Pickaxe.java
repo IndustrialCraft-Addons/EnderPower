@@ -32,7 +32,7 @@ public class Pickaxe extends ItemPickaxe {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(ModUtils.helperHasMode(stack, "digMode")) {
+        if(ModUtils.hasMode(stack, "digMode")) {
             if(GuiScreen.isShiftKeyDown()){
                 switch(stack.getTagCompound().getInteger("digMode")) {
                     case 2:
@@ -52,7 +52,7 @@ public class Pickaxe extends ItemPickaxe {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         if(!world.isRemote) {
             if(IC2.keyboard.isSneakKeyDown(player)) {
-                ModUtils.helperChangeMode(player, hand, "digMode", 3);
+                ModUtils.changeMode(player, hand, "digMode", 3);
             }
         }
         return super.onItemRightClick(world, player, hand);
@@ -66,13 +66,13 @@ public class Pickaxe extends ItemPickaxe {
     @Override
     @SideOnly(Side.CLIENT)
     public boolean hasEffect(ItemStack stack) {
-        return ModUtils.helperHasMode(stack, "digMode");
+        return ModUtils.hasMode(stack, "digMode");
     }
 
     @Override
     public boolean onBlockDestroyed(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
-        if(ModUtils.helperHasMode(stack, "digMode"))
-            ModUtils.helperBlockDestroyer(stack, world, pos, entityLiving, "pickaxe", 1, "digMode");
+        if(ModUtils.hasMode(stack, "digMode"))
+            ModUtils.blockDestroyer(stack, world, pos, entityLiving, "pickaxe", 1, "digMode");
         return super.onBlockDestroyed(stack, world, state, pos, entityLiving);
     }
 }
