@@ -112,6 +112,7 @@ upgrade.use_generator=Used in Erbium Generator
 upgrade.energy=[+] Energy production: §a+
 upgrade.capacity=[+] Internal energy storage: §a+
 upgrade.gift_energy=[+] Additional generation: §ax
+upgrade.gift_energy_debuff=[-] Increase in gas consumption: §c+
 
 jei.desc.projectile_holder=To fill the §d§lDeterrent§r, you need to hold it in your hands, press the RBM on the shulker projectile
 jei.desc.extra=When using improvements:
