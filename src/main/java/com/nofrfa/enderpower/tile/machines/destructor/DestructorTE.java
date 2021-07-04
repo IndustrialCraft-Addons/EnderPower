@@ -1,6 +1,6 @@
 package com.nofrfa.enderpower.tile.machines.destructor;
 
-import com.nofrfa.enderpower.misc.Configs;
+import com.nofrfa.enderpower.misc.EPConfig;
 import com.nofrfa.enderpower.misc.registr.ItemsRegistry;
 import com.nofrfa.enderpower.tile.machines.destructor.gui.ContainerDestr;
 import com.nofrfa.enderpower.tile.machines.destructor.gui.GuiDestr;
@@ -39,7 +39,7 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
     private float progress;
     private int energyConsume;
     private int timer;
-    public List<Recipes> recipes = Recipes.getRecipes();
+    public List<Recipes> recipes;
     public List<ItemStack> outputItems = new ArrayList<>();
 
     public DestructorTE() {
@@ -49,7 +49,8 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
         this.outputContainer = new InvSlotOutput(this, "out", 4);
         this.progress = 0;
         this.MAX_PROGRESS = 600;
-        this.energyConsume = Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume;
+        this.energyConsume = EPConfig.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume;
+        this.recipes = Recipes.getRecipes();
     }
 
     public void readFromNBT(NBTTagCompound nbt) {
@@ -69,8 +70,8 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
         super.updateEntityServer();
 
         if(this.timer++ % 100 == 0) {
-            if(this.energyConsume != Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume)
-                this.energyConsume = Configs.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume;
+            if(this.energyConsume != EPConfig.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume)
+                this.energyConsume = EPConfig.GeneralSettings.Mechanisms.Destructor.defaultEnergyConsume;
             this.timer = 0;
         }
 
@@ -220,9 +221,7 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
             if(!OreDictionary.doesOreNameExist(input)) throw new RuntimeException("invalid oreDictionary name: " + input);
 
             ItemStack[] itemStacks = OreDictionary.getOres(input).toArray(new ItemStack[0]);
-
-            for(ItemStack is : itemStacks)
-                is.setCount(count);
+            Arrays.stream(itemStacks).forEachOrdered(is -> is.setCount(count));
 
             Recipes recipe = new Recipes(itemStacks, output);
             if (recipes.contains(recipe))
@@ -264,7 +263,6 @@ public class DestructorTE extends TileEntityElectricMachine implements IHasGui, 
             addRecipes("ingotSteel", is(ItemsRegistry.DUST_steel));
             addRecipes(is(ItemsRegistry.GENERATOR_sp_1, 4), is(ItemsRegistry.GENERATOR_sp_2));
             addRecipes(is(ItemsRegistry.GENERATOR_sp_2, 4), is(ItemsRegistry.GENERATOR_sp_3));
-            //addRecipes(GGGGGGGGGGG, HHHHHHHHHHH);
         }
     }
 }

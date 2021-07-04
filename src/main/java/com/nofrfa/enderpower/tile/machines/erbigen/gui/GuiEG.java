@@ -54,7 +54,7 @@ public class GuiEG extends GuiIC2<ContainerEG> {
             this.drawTooltip(mouseX, mouseY, Collections.singletonList(this.container.base.getEnergyCapacityTooltip()));
 
         int tempPosY = (int) this.container.base.temperature / 47;
-        this.drawTexturedModalRect(84, 138 - tempPosY, 9, 0, 9, 5);
+        this.drawTexturedModalRect(84, 137 - tempPosY, 9, 0, 9, 5);
 
         int energyScaleY = (int) (this.container.base.stored / (this.container.base.maxCapacity / 128));
         this.drawTexturedModalRect(101, 140 - energyScaleY, 0, 128 - energyScaleY, 9, 128);
@@ -62,12 +62,12 @@ public class GuiEG extends GuiIC2<ContainerEG> {
         this.drawTexturedModalRect(117, 10, 18, 0, 93, 41);
         this.drawTexturedModalRect(116, 116, 111, this.container.base.getMode() ? 17 : 0, 36, 18);
 
-        this.fontRenderer.drawString(String.format("%s %s EU", I18n.format("erbigenerator.gui.stored_energy"), ModUtils.getString(this.container.base.stored)), 118, 55, 15659247, true);
-        this.fontRenderer.drawString(String.format("%s %s EU", I18n.format("erbigenerator.gui.capacity_energy"), ModUtils.getString(this.container.base.maxCapacity)), 118, 63, 15659247, true);
+        this.fontRenderer.drawString(String.format("%s %s EU", I18n.format("erbigenerator.gui.stored_energy"), ModUtils.getStringFromNumber(this.container.base.stored)), 118, 55, 15659247, true);
+        this.fontRenderer.drawString(String.format("%s %s EU", I18n.format("erbigenerator.gui.capacity_energy"), ModUtils.getStringFromNumber(this.container.base.maxCapacity)), 118, 63, 15659247, true);
         this.fontRenderer.drawString(String.format("%s %sC", I18n.format("erbigenerator.gui.temp"), String.format("%.2f", this.container.base.temperature)), 118, 71, 15659247, true);
         this.fontRenderer.drawString(String.format("%s %sC", I18n.format("erbigenerator.gui.max_temp"), this.container.base.maxTemperature), 118, 79, 15659247, true);
-        this.fontRenderer.drawString(String.format("%s %s EU/t", I18n.format("erbigenerator.gui.prod"), ModUtils.getString(this.container.base.guiProd)), 118, 87, 15659247, true);
-        this.fontRenderer.drawString(String.format("%s %s", I18n.format("erbigenerator.gui.gift_energy"), ModUtils.getString(this.container.base.guiGiftEnergy)), 118, 95, 15659247, true);
+        this.fontRenderer.drawString(String.format("%s %s EU/t", I18n.format("erbigenerator.gui.prod"), ModUtils.getStringFromNumber(this.container.base.guiProd)), 118, 87, 15659247, true);
+        this.fontRenderer.drawString(String.format("%s %s", I18n.format("erbigenerator.gui.gift_energy"), ModUtils.getStringFromNumber(this.container.base.guiGiftEnergy)), 118, 95, 15659247, true);
         this.fontRenderer.drawString(String.format("%s %s EU/t", I18n.format("erbigenerator.gui.output"), I18n.format("erbigenerator.gui.infinity")), 118, 103, 15659247, true);
     }
 

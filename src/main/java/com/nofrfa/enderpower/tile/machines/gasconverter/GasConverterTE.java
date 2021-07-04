@@ -1,6 +1,6 @@
 package com.nofrfa.enderpower.tile.machines.gasconverter;
 
-import com.nofrfa.enderpower.misc.Configs;
+import com.nofrfa.enderpower.misc.EPConfig;
 import com.nofrfa.enderpower.misc.registr.FluidsRegister;
 import com.nofrfa.enderpower.misc.registr.ItemsRegistry;
 import com.nofrfa.enderpower.tile.machines.gasconverter.gui.ContainerGas;
@@ -57,7 +57,6 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
 
         NBTTagCompound nbttt = new NBTTagCompound();
         nbttt.setString("inside", "shulker_projectile");
-
         ItemStack AcceptItem = new ItemStack(ItemsRegistry.ITEM_deterrent_filled);
         AcceptItem.setTagCompound(nbttt);
 
@@ -97,7 +96,7 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
             this.timer = 0;
         }
 
-        int energyConsume = Configs.GeneralSettings.Mechanisms.GasExtractor.defaultEnergyConsume + energy_increase;
+        int energyConsume = EPConfig.GeneralSettings.Mechanisms.GasExtractor.defaultEnergyConsume + energy_increase;
 
         if(canWork(this.gasOut_increase) && isEnergy(energyConsume) && isActive) {
             this.progress += 1 + this.time_decrease;
@@ -122,21 +121,21 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
     private boolean canWork(int count_gas) {
         return !this.inputContainer.isEmpty()
                 && this.outputContainer.isEmpty()
-                && this.fluidTank.getFluidAmount() + Configs.GeneralSettings.Mechanisms.GasExtractor.defaultOutputMb + count_gas < this.fluidTank.getCapacity();
+                && this.fluidTank.getFluidAmount() + EPConfig.GeneralSettings.Mechanisms.GasExtractor.defaultOutputMb + count_gas < this.fluidTank.getCapacity();
     }
 
     private boolean isEnergy (int energy) {
-        return this.energy.canUseEnergy(Configs.GeneralSettings.Mechanisms.GasExtractor.defaultEnergyConsume + energy);
+        return this.energy.canUseEnergy(EPConfig.GeneralSettings.Mechanisms.GasExtractor.defaultEnergyConsume + energy);
     }
 
     private void haveUpgrades() {
         this.energy_increase =
-                this.customUpgradeSlot1.get().getCount() * Configs.GeneralSettings.Upgrades.FastQ.upgrades_fastq_increaseEnergyConsume
-                + this.customUpgradeSlot2.get().getCount() * Configs.GeneralSettings.Upgrades.Volecy.upgrades_volecy_increaseEnergyConsume;
+                this.customUpgradeSlot1.get().getCount() * EPConfig.GeneralSettings.Upgrades.FastQ.upgrades_fastq_increaseEnergyConsume
+                + this.customUpgradeSlot2.get().getCount() * EPConfig.GeneralSettings.Upgrades.Volecy.upgrades_volecy_increaseEnergyConsume;
         this.time_decrease =
-                this.customUpgradeSlot1.get().getCount() * Configs.GeneralSettings.Upgrades.FastQ.upgrades_fastq_boostSpeed / 20;
+                this.customUpgradeSlot1.get().getCount() * EPConfig.GeneralSettings.Upgrades.FastQ.upgrades_fastq_boostSpeed / 20;
         this.gasOut_increase =
-                this.customUpgradeSlot2.get().getCount() * Configs.GeneralSettings.Upgrades.Volecy.upgrades_volecy_mbBoost;
+                this.customUpgradeSlot2.get().getCount() * EPConfig.GeneralSettings.Upgrades.Volecy.upgrades_volecy_mbBoost;
 
         int boostEnergyCapacity = this.customUpgradeSlot1.get().getCount() * 750;
         int boostEnergyCapacity2 = this.customUpgradeSlot2.get().getCount() * 750;
@@ -146,7 +145,7 @@ public class GasConverterTE extends TileEntityElectricMachine implements IHasGui
     private void performAction(int count_gas) {
         this.inputContainer.consume(1);
         this.outputContainer.add(new ItemStack(ItemsRegistry.ITEM_deterrent));
-        this.fluidTank.fillInternal(new FluidStack(FluidsRegister.GAS_ERBI, Configs.GeneralSettings.Mechanisms.GasExtractor.defaultOutputMb + count_gas), true);
+        this.fluidTank.fillInternal(new FluidStack(FluidsRegister.GAS_ERBI, EPConfig.GeneralSettings.Mechanisms.GasExtractor.defaultOutputMb + count_gas), true);
     }
 
     @Override
