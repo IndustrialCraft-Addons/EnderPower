@@ -1,12 +1,8 @@
 package com.nofrfa.enderpower.misc.registr;
 
 import com.nofrfa.enderpower.EnderPower;
-import com.nofrfa.enderpower.item.*;
-import com.nofrfa.enderpower.item.secondproducts.SecondProducts_0;
-import com.nofrfa.enderpower.item.secondproducts.SecondProducts_1;
-import com.nofrfa.enderpower.item.upgrade.MachinesUpgradeSpeed;
-import com.nofrfa.enderpower.item.upgrade.MachinesUpgradeVolecy;
-import com.nofrfa.enderpower.misc.Configs;
+import com.nofrfa.enderpower.item.ItemList;
+import com.nofrfa.enderpower.misc.EPConfig;
 import com.nofrfa.enderpower.misc.ModUtils;
 import com.nofrfa.enderpower.misc.tabs.TabsList;
 import com.nofrfa.enderpower.tools.Axe;
@@ -79,9 +75,6 @@ public class ItemsRegistry {
 
     @GameRegistry.ObjectHolder("emptyshell")
     public static final Item ITEM_empshel = null;
-
-    @GameRegistry.ObjectHolder("powerconversion_module")
-    public static final Item MODULE_power_convertion = null;
 
     @GameRegistry.ObjectHolder("heatingrod")
     public static final Item ITEM_hetrod = null;
@@ -158,21 +151,15 @@ public class ItemsRegistry {
     @SubscribeEvent
     public static void onRegistryItem(RegistryEvent.Register<Item> e) {
         //Item
-        e.getRegistry().register(new Deterrent("deterrent", 1, TabsList.EXtabs));
-        e.getRegistry().register(new DeterrentFilled("deterrent_filled", 1, TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("deterrent", 1));
+        e.getRegistry().register(new ItemList("deterrent_filled", 1));
         e.getRegistry().register(new ItemList("compressed_carbon_plate", 64));
         e.getRegistry().register(new ItemList("ultimate_circuit", 64));
         e.getRegistry().register(new ItemList("neifrit_coil", 64));
         e.getRegistry().register(new ItemList("emptyshell", 64));
         e.getRegistry().register(new ItemList("heatingrod", 64));
         e.getRegistry().register(new ItemList("inhibition_core", 64));
-        e.getRegistry().register(new ErbiAmulet("amulet_erbi", 1, Configs.GeneralSettings.Item.amuletErbi_durability, TabsList.EXtabs));
-
-        //Tools
-        e.getRegistry().register(new Pickaxe(ModUtils.ToolMaterial_univ, "spadiy_pickaxe", TabsList.EXtabs));
-        e.getRegistry().register(new Shovel(ModUtils.ToolMaterial_univ, "spadiy_spade", TabsList.EXtabs));
-        e.getRegistry().register(new Axe(ModUtils.ToolMaterial_univ, "spadiy_axe", TabsList.EXtabs, 8.0F, 40.0F));
-        e.getRegistry().register(new Sword(ModUtils.ToolMaterial_sword, "spadiy_sword", TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("amulet_erbi", 1, EPConfig.GeneralSettings.Item.amuletErbi_durability, false));
 
         //Ingot
         e.getRegistry().register(new ItemList("spadiy", 64));
@@ -193,35 +180,38 @@ public class ItemsRegistry {
         e.getRegistry().register(new ItemList("neifrit_dust", 64));
         e.getRegistry().register(new ItemList("steel_dust", 64));
 
-        //Module
-        e.getRegistry().register(new ItemList("powerconversion_module", 1));
+        //Tools
+        e.getRegistry().register(new Pickaxe(ModUtils.ToolMaterial_univ, "spadiy_pickaxe", TabsList.EXtabs));
+        e.getRegistry().register(new Shovel(ModUtils.ToolMaterial_univ, "spadiy_spade", TabsList.EXtabs));
+        e.getRegistry().register(new Axe(ModUtils.ToolMaterial_univ, "spadiy_axe", TabsList.EXtabs, 8.0F, 40.0F));
+        e.getRegistry().register(new Sword(ModUtils.ToolMaterial_sword, "spadiy_sword", TabsList.EXtabs));
 
         //Upgrade
-        e.getRegistry().register(new MachinesUpgradeSpeed("upgrade_speed", 16, TabsList.EXtabs));
-        e.getRegistry().register(new MachinesUpgradeVolecy("upgrade_volecy", 16, TabsList.EXtabs));
-        if(Configs.GeneralSettings.Upgrades.Energy.energy_upgrade_bool)
+        e.getRegistry().register(new ItemList("upgrade_speed", 16));
+        e.getRegistry().register(new ItemList("upgrade_volecy", 16));
+        if(EPConfig.GeneralSettings.Upgrades.Energy.energy_upgrade_bool)
             e.getRegistry().register(new ItemList("upgrade_energy", 1));
 
-        if(Configs.GeneralSettings.Upgrades.Capacity.capacity_upgrade_bool)
+        if(EPConfig.GeneralSettings.Upgrades.Capacity.capacity_upgrade_bool)
             e.getRegistry().register(new ItemList("upgrade_capacity", 1));
 
-        if(Configs.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_bool)
+        if(EPConfig.GeneralSettings.Upgrades.GiftEnergy.giftEnergy_upgrade_bool)
             e.getRegistry().register(new ItemList("upgrade_gift_energy", 1));
 
         e.getRegistry().register(new ItemList("upgrade_creative_energy", 1));
 
         //Component
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.1", 1, Configs.GeneralSettings.Item.heatSink1_durability));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.2", 1, Configs.GeneralSettings.Item.heatSink2_durability));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.3", 1, Configs.GeneralSettings.Item.heatSink3_durability));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.4", 1, Configs.GeneralSettings.Item.heatSink4_durability));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.5", 1, Configs.GeneralSettings.Item.heatSink5_durability));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.6", 1, Configs.GeneralSettings.Item.heatSink6_durability));
-        e.getRegistry().register(new CoolingComp("heatsink_lvl.7", 1, Configs.GeneralSettings.Item.heatSink7_durability));
+        e.getRegistry().register(new ItemList("heatsink_lvl.1", 1, EPConfig.GeneralSettings.Item.heatSink1_durability, false));
+        e.getRegistry().register(new ItemList("heatsink_lvl.2", 1, EPConfig.GeneralSettings.Item.heatSink2_durability, false));
+        e.getRegistry().register(new ItemList("heatsink_lvl.3", 1, EPConfig.GeneralSettings.Item.heatSink3_durability, false));
+        e.getRegistry().register(new ItemList("heatsink_lvl.4", 1, EPConfig.GeneralSettings.Item.heatSink4_durability, false));
+        e.getRegistry().register(new ItemList("heatsink_lvl.5", 1, EPConfig.GeneralSettings.Item.heatSink5_durability, false));
+        e.getRegistry().register(new ItemList("heatsink_lvl.6", 1, EPConfig.GeneralSettings.Item.heatSink6_durability, false));
+        e.getRegistry().register(new ItemList("heatsink_lvl.7", 1, EPConfig.GeneralSettings.Item.heatSink7_durability, false));
 
         //Second Products
-        e.getRegistry().register(new SecondProducts_0("second_product_0", 64, TabsList.EXtabs));
-        e.getRegistry().register(new SecondProducts_1("second_product_1", 64, TabsList.EXtabs));
+        e.getRegistry().register(new ItemList("second_product_0", 64));
+        e.getRegistry().register(new ItemList("second_product_1", 64));
         e.getRegistry().register(new ItemList("second_product_2", 64));
         e.getRegistry().register(new ItemList("second_product_3", 64));
     }
@@ -265,9 +255,6 @@ public class ItemsRegistry {
         registryModel(TOOL_spadiy_axe);
         registryModel(TOOL_spadiy_spade);
         registryModel(TOOL_spadiy_sword);
-
-        //Module
-        registryModel(MODULE_power_convertion);
 
         //Upgrade
         registryModel(UPGRADE_speed);
