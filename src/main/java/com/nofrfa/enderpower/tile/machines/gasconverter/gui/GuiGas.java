@@ -18,10 +18,9 @@ public class GuiGas extends GuiIC2<ContainerGas> {
     @SideOnly(Side.CLIENT)
     protected void drawForegroundLayer(int mouseX, int mouseY) {
         super.drawForegroundLayer(mouseX, mouseY);
+        this.mc.getTextureManager().bindTexture(getTexture());
 
         int xScale = this.container.base.getProgress() / 5;
-
-        this.mc.getTextureManager().bindTexture(getTexture());
         this.drawTexturedModalRect(59, 35, 196, 0, xScale, 3);
 
         this.fontRenderer.drawString(this.container.base.getProgress() + "%", 41, 25, 4210752);
