@@ -55,9 +55,6 @@ public class ItemsRegistry {
     @GameRegistry.ObjectHolder("spadiy_plate")
     public static final Item PLATE_spadiy = null;
 
-    @GameRegistry.ObjectHolder("neifrit_casing")
-    public static final Item CASING_neifrit = null;
-
     @GameRegistry.ObjectHolder("neifrit_plate_dense")
     public static final Item PLATE_neifrit_compres = null;
 
@@ -172,9 +169,6 @@ public class ItemsRegistry {
         e.getRegistry().register(new ItemList("neifrit_plate_dense", 64));
         e.getRegistry().register(new ItemList("spadiy_plate_dense", 64));
 
-        //Casing
-        e.getRegistry().register(new ItemList("neifrit_casing", 64));
-
         //Dust
         e.getRegistry().register(new ItemList("spadiy_dust", 64));
         e.getRegistry().register(new ItemList("neifrit_dust", 64));
@@ -230,9 +224,6 @@ public class ItemsRegistry {
         registryModel(PLATE_neifrit);
         registryModel(PLATE_neifrit_compres);
         registryModel(PLATE_spadiy_compres);
-
-        //Casing
-        registryModel(CASING_neifrit);
 
         //Dust
         registryModel(DUST_spadiy);

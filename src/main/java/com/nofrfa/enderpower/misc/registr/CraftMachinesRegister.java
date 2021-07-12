@@ -17,7 +17,6 @@ public class CraftMachinesRegister {
             neifrit = new ItemStack(ItemsRegistry.INGOT_nefrit),
             neifrit_plate = new ItemStack(ItemsRegistry.PLATE_neifrit),
             neifrit_plate_compres = new ItemStack(ItemsRegistry.PLATE_neifrit_compres),
-            neifrit_casing = new ItemStack(ItemsRegistry.CASING_neifrit, 2),
             neifritpowder = new ItemStack(ItemsRegistry.DUST_neifrit),
             sp_0 = new ItemStack(ItemsRegistry.GENERATOR_sp_0),
             sp_1 = new ItemStack(ItemsRegistry.GENERATOR_sp_1);
@@ -37,7 +36,6 @@ public class CraftMachinesRegister {
 
         addRollingRecipe(input.forStack(spadiy), spadiy_plate);
         addRollingRecipe(input.forStack(neifrit), neifrit_plate);
-        addRollingRecipe(input.forStack(neifrit_plate), neifrit_casing);
 
         addMaceratorRecipe(input.forStack(neifrit), new ItemStack(ItemsRegistry.DUST_neifrit, 6));
         addMaceratorRecipe(input.forStack(new ItemStack(BlocksRegister.NeifritOre)), new ItemStack(ItemsRegistry.DUST_neifrit, 9));
