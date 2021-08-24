@@ -31,43 +31,43 @@ public class EPConfig {
             @Config.Comment("Responsible for the durability of the heat sink")
             @Config.RangeInt(min = 0, max = 1000000)
             @Config.RequiresMcRestart
-            public int heatSink1_durability = 2400;
+            public int heatSink1_durability = 550;
 
             @Config.LangKey(config + "general_settings.item.heat_sink2")
             @Config.Comment("Responsible for the durability of the heat sink")
             @Config.RangeInt(min = 0, max = 1000000)
             @Config.RequiresMcRestart
-            public int heatSink2_durability = 4800;
+            public int heatSink2_durability = 1100;
 
             @Config.LangKey(config + "general_settings.item.heat_sink3")
             @Config.Comment("Responsible for the durability of the heat sink")
             @Config.RangeInt(min = 0, max = 1000000)
             @Config.RequiresMcRestart
-            public int heatSink3_durability = 6600;
+            public int heatSink3_durability = 1700;
 
             @Config.LangKey(config + "general_settings.item.heat_sink4")
             @Config.Comment("Responsible for the durability of the heat sink")
             @Config.RangeInt(min = 0, max = 1000000)
             @Config.RequiresMcRestart
-            public int heatSink4_durability = 7800;
+            public int heatSink4_durability = 2300;
 
             @Config.LangKey(config + "general_settings.item.heat_sink5")
             @Config.Comment("Responsible for the durability of the heat sink")
             @Config.RangeInt(min = 0, max = 1000000)
             @Config.RequiresMcRestart
-            public int heatSink5_durability = 9600;
+            public int heatSink5_durability = 4600;
 
             @Config.LangKey(config + "general_settings.item.heat_sink6")
             @Config.Comment("Responsible for the durability of the heat sink")
             @Config.RangeInt(min = 0, max = 1000000)
             @Config.RequiresMcRestart
-            public int heatSink6_durability = 10800;
+            public int heatSink6_durability = 6900;
 
             @Config.LangKey(config + "general_settings.item.heat_sink7")
             @Config.Comment("Responsible for the durability of the heat sink")
             @Config.RangeInt(min = 0, max = 1000000)
             @Config.RequiresMcRestart
-            public int heatSink7_durability = 12000;
+            public int heatSink7_durability = 13800;
         }
 
         @Config.LangKey(config + "general_settings.upgrades")

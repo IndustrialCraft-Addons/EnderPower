@@ -66,7 +66,6 @@ public class CraftRegister {
             HEATSINK_spadiy = spadiy,
             HEATSINK_spadiy_plate_compress = new ItemStack(ItemsRegistry.PLATE_spadiy_compres),
             HEATSINK_ult_cirtcuit = ult_circuit,
-            HEATSINK_neifrit_casing = new ItemStack(ItemsRegistry.CASING_neifrit),
 
             HEATSINK_reactor_exchanger = IC2Items.getItem("reactor_heat_exchanger"),
             HEATSINK_reactor_heat_vent = IC2Items.getItem("reactor_heat_vent"),
@@ -108,16 +107,16 @@ public class CraftRegister {
         addShapelessRecipe((new ItemStack(ItemsRegistry.DUST_neifrit, 4)), dust_lapis, lithiumdust, energydust, golddust);
 
         addShapedRecipes((new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit)),
-                "ABA",
+                "ABF",
                 "CDC",
-                "ABA",
-                'A', spadiydust, 'B', adv_circuit, 'C', dust_lapis, 'D', IC2Items.getItem("misc_resource", "iridium_shard"));
+                "FBA",
+                'A', spadiydust, 'B', adv_circuit, 'C', dust_lapis, 'D', IC2Items.getItem("misc_resource", "iridium_shard"), 'F', neifrit_coil);
 
         addShapedRecipes((new ItemStack(ItemsRegistry.ITEM_Ultimate_Circuit)),
-                "ACA",
-                "BDB",
-                "ACA",
-                'A', spadiydust, 'B', adv_circuit, 'C', dust_lapis, 'D', IC2Items.getItem("misc_resource", "iridium_shard"));
+                "FBA",
+                "CDC",
+                "ABF",
+                'A', spadiydust, 'B', adv_circuit, 'C', dust_lapis, 'D', IC2Items.getItem("misc_resource", "iridium_shard"), 'F', neifrit_coil);
 
         addShapedRecipes((new ItemStack(BlocksRegister.BLOCK_UltimateMachineCasing)),
                 "BDB",
